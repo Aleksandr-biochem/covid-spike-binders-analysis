@@ -20,7 +20,7 @@ Mini-proteins 1 and 3 (MP1/3) are artificial ligands initially designed to bind 
 ### Methods: 
 The workflow consists of 6 steps, highlighted at the diagram:
 
-/images/workflow.png
+![The workflow](/images/workflow.png)
 
 0. Structures of different MP/RBD complex variants are prepared from Cryo-EM solved structures of MP1/3 with wild type RBD available in PDB. This step utilizes `Biobb` package for structure checking and mutation and `Phenix` software for structure physical relaxation
 1. Mutated structures can be subjected to mutational scan with `FlexddG` method within `Rosetta` sortware, which allows to identify mutants with improved binding
