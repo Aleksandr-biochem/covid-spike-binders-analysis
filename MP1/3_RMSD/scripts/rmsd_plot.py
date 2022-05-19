@@ -49,13 +49,13 @@ if __name__ == "__main__":
     
     parser.add_argument('-i', nargs=1, help='Path to folder containing RMSD results', required=True, default="../../tables/RMSD")
     
-    parser.add_argument('-o', nargs=1, help='Output filename', required=True)
+    parser.add_argument('-o', nargs=1, help='Output path with filename', required=True)
     
     args = parser.parse_args()
 
     mutants = ['wt', 'alpha', 'delta', 'delta_plus', 'omicron']
     
-    fig, ax = plt.subplots(len(mutants), 1, figsize = (65,40))
+    fig, ax = plt.subplots(len(mutants), 1, figsize = (55,40))
     ax = ax.flatten()
 
     for i, mutant in enumerate(mutants):
@@ -65,6 +65,6 @@ if __name__ == "__main__":
     #plt.yticks(fontsize=30)
     #plt.xticks(fontsize=30)
     plt.tight_layout()
-    plt.savefig(f"../plots/{args.o[0]}", bbox_inches='tight')
+    plt.savefig(args.o[0], bbox_inches='tight')
 
     

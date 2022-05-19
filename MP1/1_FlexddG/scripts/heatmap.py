@@ -69,7 +69,7 @@ def heatmap_rosetta(summary, strain, output='.'):
     ax.set_xticks(np.arange(len(list(data_corrected.columns))), labels=col_labels, fontsize=15)
     ax.set_yticks(np.arange(len(list(data_corrected.index))), labels=list(data_corrected.index), fontsize=15)
 
-    ax.set_title(f'The saturation mutational scan of LCB1 in complex with {strain} RBD', fontsize=20, pad=20, fontweight="bold")
+    ax.set_title(f'The saturation mutational scan of MP1 in complex with {strain} RBD', fontsize=20, pad=20, fontweight="bold")
     ax.set_xlabel('residues of MP1', fontsize=20, fontweight="bold")
     ax.set_ylabel('mutated residues of MP1', fontsize=20, fontweight="bold")
 
