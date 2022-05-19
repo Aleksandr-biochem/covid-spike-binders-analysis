@@ -1,6 +1,6 @@
 import os
 import sys
-sys.path.append('../../../handling/LCB1/md-utils/md_utils')
+sys.path.append('../../handling/LCB1/md-utils/md_utils')
 from tqdm import tqdm
 import argparse
 
@@ -28,7 +28,7 @@ def rmsd_calc_wt_omcr(mutant="", trj_path=".", outpth="."):
 
   # set trj parameters
   trj_start = 1
-  trj_length = 1000
+  trj_length = 1499
   stride = 1000
 
   # read trajectory
