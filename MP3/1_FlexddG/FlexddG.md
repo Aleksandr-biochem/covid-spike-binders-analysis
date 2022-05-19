@@ -52,17 +52,17 @@ python plot_score_contributions.py -i ../tables/output_struct_scores_delta_plus_
 After performing saturation mutational scan, heatmaps with FlexddG scores for each mutation can be plotted. Mutations with scores below -1 are considered stabilizing and are highlighted in green. Substitutions to the same residue are highlighted in greay dashed boxes. Below are results for delta+ and omicron complexes. It is evident, that for omicron complex much less stabilizing mutations are found, which is consistent with MM-GBSA results shiwing stabilization of MP3/omicron complex (therefore not many stabilizing mutations are possible).
 
 <p align="center">
-  <img src="/results_plots/heatmap_delta+.png" width="700">
+  <img src="results_plots/heatmap_delta+.png" width="700">
 </p>
 
 <p align="center">
-  <img src="/results_plots/heatmap_omicron.png" width="700">
+  <img src="results_plots/heatmap_omicron.png" width="700">
 </p>
 
 In case of MP3/delta+ a fovourable D37R mutation is found. This utation to polar residue may lead to formation of new polar interactions. Patricular contributions to FlexddG score for this mutation can be visualized as bar plot. In this case, polar Δhbond contributions seem not to be major, however a detailed investigation with MD and MM_GBSA decomposition is needed to check the effect of this mutation.
 
 <p align="center">
-  <img src="/results_plots/score_contributions_MP3_D37R.png" width="500">
+  <img src="results_plots/score_contributions_MP3_D37R.png" width="500">
 </p>
 
 
@@ -94,9 +94,9 @@ Note that this script operates upon assumtion of 1 mutation being fixed across a
 In order to find MP3 variants with two mutations a pair mutational scan is conducted. Pairs consist of D37R substitution and each stabilixing mutation found for MP3/delta+ complex earlier. Visualixation of FlexddG scores as box plot shows that all combinations are stabilizing for delta+ complex. the best result corresponds to T10W-D37R combination as it has one of the lowest scores and low std. All combinations of mutations are a destabilizing for omicron complex and are rather illustrative here.
 
 <p align="center">
-  <img src="/results_plots/delta+_pair_mutations.png" width="600">
+  <img src="results_plots/delta+_pair_mutations.png" width="600">
 </p>
 
 <p align="center">
-  <img src="/results_plots/omicron_pair_mutations.png" width="600">
+  <img src="results_plots/omicron_pair_mutations.png" width="600">
 </p>
