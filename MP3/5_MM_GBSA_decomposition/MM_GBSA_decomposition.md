@@ -35,3 +35,25 @@ python plot_decomp_result.py -i ../tables -igb igb2
 ```
 The plot is saved to 'plots' dir. If you add new complex type to the analysis, modify `mutants` variable inside the script.
 
+**Obtained results:**
+MM-GBSA decomposition allows a detailed analysis of residue interactions. Results are plotted as differential contact maps providing ineraction energy difference from respective pairs in MP3/wt RDB complex. 
+
+Contact map for the complex with omicron highlights a strong interaction between Asp37 in MP3 and Arg493 in RBD, which leads to overall decrease in ΔG binding.
+
+<p align="center">
+  <img src="/results_plots/contact_map_omicron+mp3_igb8.png.png" width="700">
+</p>
+
+Comparison of contact maps for delta+ with MP3/MP3(D37R)/MP3(T10W;D37R) shows, that while destabilizations present in complex with MP3 persist in other complexes, D37R mutation provides a stabilizing interaction of Arg37 with Glu484 in RDB. Addition of T10W mutation provides no significant overall or local stabilizations.
+
+<p align="center">
+  <img src="/results_plots/contact_map_delta_plus+mp3_igb8.png" width="700">
+</p>
+
+<p align="center">
+  <img src="/results_plots/contact_map_delta_p+mp3_d37r_igb8.png" width="700">
+</p>
+
+<p align="center">
+  <img src="/results_plots/contact_map_delta_p+mp3_d37r_t10w_igb8.png" width="700">
+</p>

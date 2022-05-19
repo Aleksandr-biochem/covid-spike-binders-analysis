@@ -18,7 +18,7 @@ def rmsd_plot(trj, ax, title, what_to_plot):
     ax.set_ylabel(r'RMSD, $\rm\AA$', fontsize=25, labelpad=10)
     ax.tick_params(axis='x', labelsize=20)
     ax.tick_params(axis='y', labelsize=20)
-    ax.set_ylim(1, 4)
+    ax.set_ylim(0, 3)
     ax.set_xlim(0, len(trj.time_ns))
     ax.legend(fontsize=17)
     
@@ -55,7 +55,7 @@ if __name__ == "__main__":
 
             fig, ax = plt.subplots(1, 1, figsize=(20, 5))
             rmsd_plot(trj_data, ax, title, what_to_plot)
-            plt.savefig(f"../plots/rmsd_{mutant}_{plotting_states[what_to_plot]}.png", bbox_inches='tight', dpi=300)
+            plt.savefig(f"../rmsd_{mutant}_{plotting_states[what_to_plot]}.png", bbox_inches='tight', dpi=300)
             plt.close(fig)
         except:
             continue

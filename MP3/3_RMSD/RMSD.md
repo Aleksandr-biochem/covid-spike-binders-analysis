@@ -17,3 +17,16 @@ python calc_rmsd_by_helix.py
 python plot_rmsd.py -i ../tables -v 1
 ```
 Note that possible mutants and corresponding titles are listed inside the script in `mutants`, `titles` variables. If you add new variants to the analysis, update those variables.
+
+**Obtained results:**
+As a result, RMSD plots are obtained for all simulated trajectories. Quite stable RMSD patterns are observed for all complexes, although there are minor fluctuations in some cases. Plotting RMSD complex vs RBD and MP and MP vs its helices suggests that such fluctuations can be attributed to shifts in flexible helix of MP. This result is confirmed by visual examination of trajectories. Nevertheless flexible regions do not affect inreface residues, which appear to be quite stable in time.
+
+Below is an example for MP3/delta RDB complex:
+
+<p align="center">
+  <img src="/results_plots/rmsd_delta+mp3_rbd_vs_mp.png" width="800">
+</p>
+
+<p align="center">
+  <img src="/results_plots/rmsd_delta+mp3_mp_vs_helices.png" width="800">
+</p>

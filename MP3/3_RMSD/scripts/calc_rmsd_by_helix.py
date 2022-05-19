@@ -1,7 +1,7 @@
 import sys
 sys.path.append('../../../md_utils')
 from md_utils.frame.select import get_sec_str_residues_predicate
-from pyxmolpp2 import PdbFile, Trajectory, AmberNetCDF, calc_rmsd, mName, rId
+from pyxmolpp2 import PdbFile, Trajectory, AmberNetCDF, calc_rmsd, mName, aName, rId
 from pyxmolpp2.pipe import AssembleQuaternaryStructure
 from tqdm import tqdm
 import os
@@ -32,21 +32,21 @@ for mutant in mutants:
         traj.extend(AmberNetCDF(os.path.join(os.path.join(path_to_trj_dir, "6_run"), fname % (ind))))
 
     # set predicate sec.str CA atoms
-    lcb_sec_str_ca_predicate = get_sec_str_residues_predicate(frame=trj_ref, molnames=["A"])
-    rbd_sec_str_ca_predicate = get_sec_str_residues_predicate(frame=trj_ref, molnames=["B"])
-    all_sec_str_ca_predicate = get_sec_str_residues_predicate(frame=trj_ref, molnames=["A", "B"])
+    mp_sec_str_ca_predicate = get_sec_str_residues_predicate(frame=trj_ref, molnames=["A"]) & (aName == "CA")
+    rbd_sec_str_ca_predicate = get_sec_str_residues_predicate(frame=trj_ref, molnames=["B"]) & (aName == "CA")
+    all_sec_str_ca_predicate = get_sec_str_residues_predicate(frame=trj_ref, molnames=["A", "B"]) & (aName == "CA")
 
     #  reference atoms for alignment
-    ref_lcb_sec_str_ca = trj_ref.atoms.filter(lcb_sec_str_ca_predicate)
-    ref_lcb_interacting_helices_sec_str_ca = trj_ref.atoms.filter(lcb_sec_str_ca_predicate & (rId.is_in(set([_ for _ in range(1, 42)]))))
-    ref_lcb_distanced_helix_sec_str_ca = trj_ref.atoms.filter(lcb_sec_str_ca_predicate & (rId.is_in(set([_ for _ in range(42, 65)]))))
+    ref_mp_sec_str_ca = trj_ref.atoms.filter(mp_sec_str_ca_predicate)
+    ref_mp_interacting_helices_sec_str_ca = trj_ref.atoms.filter(mp_sec_str_ca_predicate & (rId.is_in(set([_ for _ in range(1, 42)]))))
+    ref_mp_distanced_helix_sec_str_ca = trj_ref.atoms.filter(mp_sec_str_ca_predicate & (rId.is_in(set([_ for _ in range(42, 65)]))))
     ref_rbd_sec_str_ca = trj_ref.atoms.filter(rbd_sec_str_ca_predicate)
     ref_all_sec_str_ca = trj_ref.atoms.filter(all_sec_str_ca_predicate)
 
     #  create data variables
-    rmsd_lcb_sec_str_ca = np.zeros(int(traj.size / stride))
-    rmsd_lcb_interacting_helices_sec_str_ca = np.zeros(int(traj.size / stride))
-    rmsd_lcb_distanced_helix_sec_str_ca = np.zeros(int(traj.size / stride))
+    rmsd_mp_sec_str_ca = np.zeros(int(traj.size / stride))
+    rmsd_mp_interacting_helices_sec_str_ca = np.zeros(int(traj.size / stride))
+    rmsd_mp_distanced_helix_sec_str_ca = np.zeros(int(traj.size / stride))
     rmsd_rbd_sec_str_ca = np.zeros(int(traj.size / stride))
     rmsd_all_sec_str_ca = np.zeros(int(traj.size / stride))
 
@@ -56,33 +56,33 @@ for mutant in mutants:
                                                                    reference=trj_ref)):
         if frame.index == 0:
             # create variables for selections from atoms of frame
-            frame_lcb_sec_str_ca = frame.atoms.filter(lcb_sec_str_ca_predicate)
-            frame_lcb_interacting_helices_sec_str_ca = frame.atoms.filter(lcb_sec_str_ca_predicate & (rId.is_in(set([_ for _ in range(1, 42)])))) # for LCB3
-            frame_lcb_distanced_helix_sec_str_ca = frame.atoms.filter(lcb_sec_str_ca_predicate & (rId.is_in(set([_ for _ in range(42, 65)])))) # for LCB3
+            frame_mp_sec_str_ca = frame.atoms.filter(mp_sec_str_ca_predicate)
+            frame_mp_interacting_helices_sec_str_ca = frame.atoms.filter(mp_sec_str_ca_predicate & (rId.is_in(set([_ for _ in range(1, 42)])))) # for MP3
+            frame_mp_distanced_helix_sec_str_ca = frame.atoms.filter(mp_sec_str_ca_predicate & (rId.is_in(set([_ for _ in range(42, 65)])))) # for MP3
             frame_rbd_sec_str_ca = frame.atoms.filter(rbd_sec_str_ca_predicate)
             frame_all_sec_str_ca = frame.atoms.filter(all_sec_str_ca_predicate)
 
-        # rmsd for sec.str. CA atoms of lcb
-        alignment = frame_lcb_sec_str_ca.alignment_to(ref_lcb_sec_str_ca)
-        crd = frame_lcb_sec_str_ca.coords.values.copy()
+        # rmsd for sec.str. CA atoms of MP
+        alignment = frame_mp_sec_str_ca.alignment_to(ref_mp_sec_str_ca)
+        crd = frame_mp_sec_str_ca.coords.values.copy()
         crd = crd @ alignment.matrix3d().T + alignment.vector3d().values
-        rmsd_lcb_sec_str_ca[int(frame.index / stride)] = calc_rmsd(ref_lcb_sec_str_ca.coords.values,
+        rmsd_mp_sec_str_ca[int(frame.index / stride)] = calc_rmsd(ref_mp_sec_str_ca.coords.values,
                                                                    crd
                                                                    )
 
-        # rmsd for sec.str. CA atoms of lcb3 helices interacting with RBD
-        alignment = frame_lcb_interacting_helices_sec_str_ca.alignment_to(ref_lcb_interacting_helices_sec_str_ca)
-        crd = frame_lcb_interacting_helices_sec_str_ca.coords.values.copy()
+        # rmsd for sec.str. CA atoms of MP3 helices interacting with RBD
+        alignment = frame_mp_interacting_helices_sec_str_ca.alignment_to(ref_mp_interacting_helices_sec_str_ca)
+        crd = frame_mp_interacting_helices_sec_str_ca.coords.values.copy()
         crd = crd @ alignment.matrix3d().T + alignment.vector3d().values
-        rmsd_lcb_interacting_helices_sec_str_ca[int(frame.index / stride)] = calc_rmsd(ref_lcb_interacting_helices_sec_str_ca.coords.values,
+        rmsd_mp_interacting_helices_sec_str_ca[int(frame.index / stride)] = calc_rmsd(ref_mp_interacting_helices_sec_str_ca.coords.values,
                                                                    crd
                                                                    )
 
-        # rmsd for sec.str. CA atoms of lcb3 helix distanced from RBD
-        alignment = frame_lcb_distanced_helix_sec_str_ca.alignment_to(ref_lcb_distanced_helix_sec_str_ca)
-        crd = frame_lcb_distanced_helix_sec_str_ca.coords.values.copy()
+        # rmsd for sec.str. CA atoms of mp3 helix distanced from RBD
+        alignment = frame_mp_distanced_helix_sec_str_ca.alignment_to(ref_mp_distanced_helix_sec_str_ca)
+        crd = frame_mp_distanced_helix_sec_str_ca.coords.values.copy()
         crd = crd @ alignment.matrix3d().T + alignment.vector3d().values
-        rmsd_lcb_distanced_helix_sec_str_ca[int(frame.index / stride)] = calc_rmsd(ref_lcb_distanced_helix_sec_str_ca.coords.values,
+        rmsd_mp_distanced_helix_sec_str_ca[int(frame.index / stride)] = calc_rmsd(ref_mp_distanced_helix_sec_str_ca.coords.values,
                                                                    crd
                                                                    )
 
@@ -110,6 +110,6 @@ for mutant in mutants:
                  r"sec.str. C$\rm\alpha$ MP distanced helix $\rm\AA$"]
 
     time = np.linspace(trj_start, trj_length, int(traj.size / stride))
-    pd.DataFrame(np.vstack((time, rmsd_lcb_sec_str_ca, rmsd_rbd_sec_str_ca, rmsd_all_sec_str_ca,
-                            rmsd_lcb_interacting_helices_sec_str_ca,rmsd_lcb_distanced_helix_sec_str_ca)).T,
+    pd.DataFrame(np.vstack((time, rmsd_mp_sec_str_ca, rmsd_rbd_sec_str_ca, rmsd_all_sec_str_ca,
+                            rmsd_mp_interacting_helices_sec_str_ca,rmsd_mp_distanced_helix_sec_str_ca)).T,
                  columns=col_names).to_csv(f"../rmsd_output/rmsd_ca_ss_{mutant}.csv", index=False)

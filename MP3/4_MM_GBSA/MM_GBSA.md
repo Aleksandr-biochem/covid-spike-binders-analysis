@@ -28,3 +28,15 @@ python analyze_gbsa.py
 python plot_gbsa.py -i ../tables -igb igb8 -f 500 -s dG
 ```
 The plots are saved to 'plots' dir. If you add new complex type to the analysis, modify `mutants` and `labels` variables inside the script.
+
+
+**Obtained results:**
+MM-GBSA results can be plotted as either ΔG or ΔΔG in relation to MP3/wt complex. The latter option allows more convinient comparison of two models. Binding free energy estimations shows that MP3 affinity changes differently across RBD variants (see ΔΔG bar charts below). Depending on the model chosen for MM-GBSA calculation (igb2 or 8) predictions for alpha and delta variants vary. However, a significant destabilization is observed for the complex with delta+ RDB (ΔΔG > 0) and stabilization is evident for omicron binding (ΔΔG < 0). 
+
+<p align="center">
+  <img src="/results_plots/ddG_mmgbsa_igb2.png" width="600">
+</p>
+
+<p align="center">
+  <img src="/results_plots/ddG_mmgbsa_igb8.png" width="600">
+</p>

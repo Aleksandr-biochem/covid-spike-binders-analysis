@@ -260,5 +260,5 @@ if __name__ == "__main__":
 
         annotate_heatmap(im, vmax=32)
 
-        plt.savefig(f"../plots/contact_map_{mutant}_{igb}.png", bbox_inches='tight', dpi=300)
+        plt.savefig(f"../contact_map_{mutant}_{igb}.png", bbox_inches='tight', dpi=300)
         plt.close(fig)

@@ -75,7 +75,7 @@ def plot_scores(data, old_residue, residue_id, new_residue, variant, backrub_ste
 
     # ax.set_ylim(-5, 5)
     
-    plt.savefig(f"../plots/score_contributions_MP3_{old_residue}{residue_id}{new_residue}.png", bbox_inches='tight', dpi=300)
+    plt.savefig(f"../score_contributions_MP3_{old_residue}{residue_id}{new_residue}.png", bbox_inches='tight', dpi=300)
 
 
 if __name__ == "__main__":

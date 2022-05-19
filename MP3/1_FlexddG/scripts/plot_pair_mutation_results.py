@@ -84,7 +84,7 @@ def plot_ddg(df, path_to_pdb, fixed_mutation, mutant, backrub_steps, nstruct, sc
 
     ax.set_xticklabels(ax.get_xmajorticklabels(), fontsize = 15)
 
-    plt.savefig(f"../plots/{mutant}_pair_mutations.png", bbox_inches='tight', dpi=300)
+    plt.savefig(f"../{mutant}_pair_mutations.png", bbox_inches='tight', dpi=300)
 
 
 if __name__ == "__main__":

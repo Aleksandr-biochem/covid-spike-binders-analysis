@@ -96,7 +96,7 @@ def plot_mmgbsa(path_to_data, igb, start_frame, sate):
         plt.title(f"MM-GBSA ΔΔG binding for RBD/MP3 complexes in relation to wild type ({igb})", fontsize=15, pad=10)
 
     # save image
-    plt.savefig(f"../plots/{state}_mmgbsa_{igb}.png", bbox_inches='tight', dpi=300)
+    plt.savefig(f"../{state}_mmgbsa_{igb}.png", bbox_inches='tight', dpi=300)
 
 if __name__ == "__main__":
     # parse arguments
