@@ -39,6 +39,6 @@ As a result, RMSD plots are obtained for all simulated trajectories. Quite stabl
 Below is an example for MP3/delta RDB complex:
 
 <p align="center">
-  <img src="results_plots/all_rmsd.png" width="800">
+  <img src="result_plots/all_rmsd.png" width="800">
 </p>
 

@@ -64,13 +64,13 @@ The results show that there is a local interaction contributing mostly into free
 Omicron strain inherits mutation presented in alpha and delta strains, however the effect from them is enhanced. Contact map for the complex with omicron (first figure) and delta+ (second figure) highlights a strong local interaction between Asp30 in MP1 and mutated to Arg417 in RBD, which takes the major part of overall increase in ΔG binding. This is explained by Lys to Asn substitution, which could lead to the disappearence of electrostatic interactions (e.g. disruption of salt bridges) with Asp30 and Ser29 of MP1. Though also slight stabilizing interaction is presented between Asp17 of MP1 and mutated from Gln493 to Arg493 of RBD. 
 
 <p align="center">
-  <img src="results_plots/omicron_vs_wt_igb8.png" width="700">
+  <img src="result_plots/omicron_vs_wt_igb8.png" width="700">
 </p>
 
 In comparison, contact maps for delta+ with MP1 shows, that while destabilizing interactions overlaps with those for omicron/MP1, any stabilizing ones were described.
 
 <p align="center">
-  <img src="results_plots/delta_plus_vs_wt_igb8.png" width="700">
+  <img src="result_plots/delta_plus_vs_wt_igb8.png" width="700">
 </p>
 
 ## 1.2 Polar contribution analysis
@@ -79,5 +79,5 @@ MM-GBSA decomposition analysis data provides the information not only for the to
 Herein the contribution of polar interactions into omicron/MP1 total binding energy fluctuations is shown. Indeed, the decrease of MP1 affinity to omicron RBD depends on the increased effect of polar interactions. 
 
 <p align="center">
-  <img src="results_plots/omicron_ASP30-ASN417.png" width="700">
+  <img src="result_plots/omicron_ASP30-ASN417.png" width="700">
 </p>

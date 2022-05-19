@@ -52,7 +52,7 @@ All resutls are available in `result_plots` directory.
 After performing saturation mutational scan, heatmaps with FlexddG scores for each mutation were plotted. The Y axis represents primary MP1 amino acids and on the X axis mutated residues are placed. Each score stands for the difference in dinding energy between primary and mutated amino acid in MP1. Mutations with scores below -1 are considered to be stabilizing and highlighted with blue frames. Substitutions to the same residue are highlighted in grey frames. Below are results for delta+ complex. It is obvious, that practically none of mutations tends to stabilize the complex. The majority of them lead to the decrease of binding energy, in other words - destabilize the structure. 
 
 <p align="center">
-  <img src="plots/delta_plus_flexddG.png" width="700">
+  <img src="result_plots/delta_plus_flexddG.png" width="700">
 </p>
 
 In case of MP1/delta+ a fovourable E3W mutation is found. This mutation leads to the itroduction of space-sufficient hydrophobic aromatic group, which could disrupt the MP1 structure itself and induce complex destabilization. Thus none of mutations can be called favourable. 
