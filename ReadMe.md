@@ -76,16 +76,20 @@ Within this work a panel of SARS-CoV-2 varints was analyzed: alpha, delta, delta
 
 **MM-GBSA:**
 MM-GBSA binding free energy estimations shows that MP3 binding changes differently across RBD variants (see ΔΔG bar chart below). Depending on the model chosen for MM-GBSA calculation (igb2 or 8) predictions for alpha and delta variants vary. However, a significant destabilization is observed for the complex with delta+ RDB (ΔΔG > 0) and stabilization is evident for omicron binding (ΔΔG < 0). 
-![mmgbsa_mp3](/images/ddG_mmgbsa_igb8.png)
+
+![mmgbsa_mp3](/images/ddG_mmgbsa_mp3.png | width=100)
 
 The differential contact map below, plotted from decomposition results, demostrates stabilization/destabilization of residue interactions in MP3/omicron complex in relation to the complex with wild type RDB. This chart highlights a strong interaction between Asp37 in MP3 and Arg493 in RBD, which leads to overall decrease in ΔG binding. Therefore, mutation of MP3 seems to be irrelevant in this case.
-![decomposition_mp3_omicron](/images/ddG_mmgbsa_igb8.png)
+
+![decomposition_mp3_omicron](/images/contact_map_omicron+mp3_igb8.png | width=100)
 
 The MP3/RBD delta+ complex was analyzed in FlexddG to design mutants with improved binding. The heatmap below shows FlexddG scores for each mutation. Mutations with scores below -1 are considered stabilising. Asp37Arg mutation appears to be one of the most stabilyzing and may lead to formation of new polar interactions. In addition to MP3(D37R), a binding of MP3(T10W;D37R) variant to delta+ was investigated by MD and MM-GBSA. The variant with two mutations was proposed based on pair mutational scan (see 1_FlexddG subdir for more details).
-![mmgbsa_mp3](/images/heatmap_delta+.png)
+
+![mmgbsa_mp3](/images/heatmap_delta+.png | width=100)
 
 MM-GBSA analysis for mutant MP3 varints demonstrates improved binding to delta+ RDB, although second mutation adds no significant inprovement compared to MP3(D37R) (see the ΔΔG bar chart above). Decomposition analysis for MP3(D37R)/delta+ complex shows that Arg37-Glu484 stabilizing interaction is formed, which proves the direct effect of introduced mutation. 
-![mmgbsa_mp3](/images/contact_map_delta_p+mp3_d37r_igb8.png)
+
+![mmgbsa_mp3](/images/contact_map_delta_p+mp3_d37r_igb8.png | width=100)
 
 <a name="sec7"></a>
 ### Conclusions:
