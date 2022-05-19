@@ -86,7 +86,7 @@ python analyze_flex_ddG.py
 ```
 3. Draw a barplot of acquired ΔΔG values with `plot_pair_mutation_results.py`. This script accepts path to -struct_scores_results.csv and filters it prior to plotting. You can use sample data from 'tables' dir (delta_plus_MP3_pair_mutations.csv). The example command of the command-line tools script:
 ```sh
-python plot_pair_mutation_results.py -i ../tables/delta_plus_MP3_pair_mutations.csv -p pair_mutations/inputs/pdb_deltap/delta_p+lcb3_minimized.pdb -mutant delta+ -s D37R -b 35000 -n 35 -f fa_talaris2014-gam
+python plot_pair_mutation_results.py -i ../tables/delta_plus_MP3_pair_mutations.csv -p pair_mutations/inputs/pdb_deltap/delta_p+mp3_minimized.pdb -mutant delta+ -s D37R -b 35000 -n 35 -f fa_talaris2014-gam
 ```
 Note that this script operates upon assumtion of 1 mutation being fixed across all pairs.
 
