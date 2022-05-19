@@ -89,6 +89,10 @@ The differential contact map below, plotted from decomposition results, demostra
   <img src="/images/contact_map_omicron+mp3_igb8.png" width="700">
 </p>
 
+<p align="center">
+  <img src="/images/Omicron.png" width="700">
+</p>
+
 The MP3/RBD delta+ complex was analyzed in FlexddG to design mutants with improved binding. The heatmap below shows FlexddG scores for each mutation. Mutations with scores below -1 are considered stabilising. Asp37Arg mutation appears to be one of the most stabilyzing and may lead to formation of new polar interactions. In addition to MP3(D37R), a binding of MP3(T10W;D37R) variant to delta+ was investigated by MD and MM-GBSA. The variant with two mutations was proposed based on pair mutational scan (see 1_FlexddG subdir for more details).
 
 <p align="center">
@@ -99,6 +103,10 @@ MM-GBSA analysis for mutant MP3 varints demonstrates improved binding to delta+ 
 
 <p align="center">
   <img src="/images/contact_map_delta_p+mp3_d37r_igb8.png" width="700">
+</p>
+
+<p align="center">
+  <img src="/images/New_bond.png" width="700">
 </p>
 
 <a name="sec7"></a>
