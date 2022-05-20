@@ -1,8 +1,7 @@
 # Analysis and construction of SARS-CoV-2 neutralizing ligands with extensive Spike binding
-*This repository contains the analysis workflow and results regarding affinity of protein minibinders to receptor-binding domain (RBD) of SARS-CoV-2 variants*
-
+*This repository contains results and materials for analysis reproduction of mini-protein ligands binding to several SARS-CoV-2 RBD variants.*
 **Authors:**
-- Aleksandr Kovalenko *(All-Russian Institute of Plant Protection, Saint Petersburg, Russia)*
+- Aleksandr Kovalenko *(All-Russian Institite of Plant Protection, Saint Petersburg, Russia)*
 - Xenia Sukhanova *(ITMO University, Saint Petersburg, Russia)*  
 
 **Supervisors:** Olga Lebedenko, Nikolai Skrynnikov *(BioNMR laboratory, Saint Petersburg State University, Saint Petersburg, Russia)*
@@ -17,14 +16,13 @@
 
 <a name="sec1"></a>
 ### Background:
-Protein minibinders (MP1 and MP3) have been designed *in silico* against RBD of wild-type spike protein to prevent  SARS-CoV-2 entry into cells. However, the emergence of new covid strains hinders their effective use.  
+Mini-proteins 1 and 3 (MP1/3) are artificial ligands initially designed to bind the wild type SARS-CoV-2 RBD and impair its binding to human cells. However, the emergence of new covid strains hinders their effective use.  
 
-**Goal:** The main goal of this project is to develop the workflow for estimation of the binding affinity of MP1 and MP3 proteins to RBD of new SARS-CoV-2 variants (alpha, delta, delta+, omicron). The additional objective is to optimize the  MP1 and MP3 sequences for stronger interaction with RBD of the new SARS-CoV-2 strains.
+**Goal:** This project aims to provide a workflow for the mini-pritein binding analysis of to different variants of SARS-CoV-2 RBDs and also for MPs structural adaptation to new strains.
 
 **Objectives:**
-- Estimate the binding free energy of MP1 and MP3 to RBD of the new SARS-CoV-2 strains by MM-GBSA protocol 
-- Perform the pairwise residue energy decomposition to gain better understanding of recognition processes (based on MMPBSA.py from Amber20)
-- Optimize MP1 and MP3 sequences for stronger interaction with RBD of the new SARS-CoV-2 strains (based on Flexx ddG from Rosetta)
+- Analyze MP1/3 binding to several RBD variants via MD simulaition, MM-GBSA and decomposition analyses and investigate whether binding in strain-dependent
+- Perform mutation of MP1/3 to improve ligand binding to recent SARS-CoV-2 variants delta+ and omicron
 - Develop a collection of python scripts for structural analysis, simulations and results processing and visualization 
 
 <a name="sec2"></a>
@@ -35,12 +33,12 @@ The workflow consists of 6 steps:
   <img src="/images/workflow.png">
 </p>
 
-0. **Structure preparation.** We use the starting coordinates of MP1 and MP3 in complex with RBD of wild-type SARS-CoV2 from PDB that have medium resolution (cryo-EM structure with ~3 Å resolution). To produce a model of RBD of SARS-CoV-2 (alpha, delta, delta+, omicron), we performed *in silico* mutagenesis with `Biobb` package. Finally, the complexes with mutated RBD were relaxed by using `Phenix`
-1. ***In silico* scanning saturation mutagenesis.** We use the `Flex ddG` protocol from `Rosetta` to model changes in binding free energies upon mutations in MP1 or MP3 in complex with RBD
-2. **Molecular dynamics (MD) modelling.** All trajectories were recorded with `Amber20` package. The length of each MD trajectory is 1.5 μs
-3. **Assessing the precision of MD models.** The RMSD profiles were calculated using in-house python script
-4. **Estimation of the binding free energy.** For this purpose, MM-PBSA energy components of the complexes were calculated for 1000 equidistant snapshots extracted from the last 1 μs using `MMPBSA.py` from `Amber20`
-5. **The pairwise residue energy decomposition**. For a detailed analysis of residue interactions contribution in binding, MM-GBSA decomposition analysis is performed (also with `MMPBSA.py`)
+0. Structures of different MP/RBD complex variants are prepared from Cryo-EM solved structures of MP1/3 with wild type RBD available from PDB. This step utilizes `Biobb` package for structure checking and mutation and `Phenix` software for complex physical relaxation prior to subsequent simulations
+1. Mutated structures can be subjected to mutational scan with `FlexddG` method within `Rosetta` sortware, which allows to identify mutants with improved binding
+2. For all structures MD simulations are performed with `Amber20`
+3. RMSD metrics are assesed for simulated trajectories
+4. Using conformations obtained from MD, MM-GBSA analysis in `Amber20` is performed to estimate binding free energies for different complexes 
+5. For a detailed analysis of residue interactions contribution in binding, MM-GBSA decomposition analysis is performed
 
 These steps utilize two modeling softwares (Rosetta and Amber20) and several methods within them to provide a panel of evidence on MP binding to RBD.
 
@@ -102,7 +100,7 @@ And as it can be noticed via structural visualization, indeed, existing in wt co
   <img src="/images/omicron_mp1.png" width="600">
 </p> 
 
-Yo improve the binding of MP1 the MP1/RBD delta+ complex was analyzed in FlexddG to design MP1 mutants. The heatmap below shows FlexddG scores for each mutation. Mutations with scores below -1 are considered stabilising. Practically all mutations appear to be destabilizing. The only one leading to the increase of free binding energy is Glu3Trp mutation. Though it may lead to formation of new interactions, it also causes the introduction of sufficient aromatic group. Thus could disrupt the MP1 and complex structure. According to these findings, structural remodelling rather modification of MP1 is preferable to improve its binding to RBD.
+To improve the binding of MP1 the MP1/RBD delta+ complex was analyzed in FlexddG to design MP1 mutants. The heatmap below shows FlexddG scores for each mutation. Mutations with scores below -1 are considered stabilising. Practically all mutations appear to be destabilizing. The only one leading to the increase of free binding energy is Glu3Trp mutation. Though it may lead to formation of new interactions, it also causes the introduction of sufficient aromatic group. Thus could disrupt the MP1 and complex structure. According to these findings, structural remodelling rather modification of MP1 is preferable to improve its binding to RBD.
 
 <p align="center">
   <img src="/images/delta_plus_flexddG.png" width="700">
@@ -112,10 +110,10 @@ Yo improve the binding of MP1 the MP1/RBD delta+ complex was analyzed in FlexddG
 ### Results for MP3:
 
 **MM-GBSA:**
-MM-GBSA binding free energy estimation demonstrates that MP3 binding changes differently across RBD variants (see ΔΔG bar chart below). Depending on the model chosen for MM-GBSA calculation (igb2 or 8) predictions for alpha and delta variants vary. However, a significant destabilization is observed for the complex with delta+ RDB (ΔΔG > 0) and stabilization is evident for omicron binding (ΔΔG < 0). 
+MM-GBSA binding free energy estimations shows that MP3 binding changes differently across RBD variants (see ΔΔG bar chart below). Depending on the model chosen for MM-GBSA calculation (igb2 or 8) predictions for alpha and delta variants vary. However, a significant destabilization is observed for the complex with delta+ RDB (ΔΔG > 0) and stabilization is evident for omicron binding (ΔΔG < 0). 
 
 <p align="center">
-  <img src="/images/ddG_mmgbsa_mp3_igb8.png" width="600">
+  <img src="/images/ddG_mmgbsa_mp3.png" width="600">
 </p>
 
 The differential contact map below, plotted from decomposition results, demostrates stabilization/destabilization of residue interactions in MP3/omicron complex in relation to the complex with wild type RDB. This chart highlights a strong interaction between Asp37 in MP3 and Arg493 in RBD, which leads to overall decrease in ΔG binding. Therefore, mutation of MP3 seems to be irrelevant in this case.
@@ -146,15 +144,15 @@ MM-GBSA analysis for mutant MP3 varints demonstrates improved binding to delta+ 
 
 <a name="sec7"></a>
 ### Conclusions:
-- The workflow for the analysis of binding affinity of MP1 and MP3 ligands to RBD of the new SARS-CoV-2 strains (alpha, delta, delta+, omicron) is developed
-- Steps for the further optimization of MP1 and MP3 sequences are suggested 
-- The collection of python scripts is provided for structure manipulation, simulations, binding analyses and results processing
+- The algorithm for binding analysis and mutational optimisation of MP ligands was assesed for a panel of SARS-CoV-2 RBD variants
+- A collection of python scripts is provided for structure manipulation, simulations, binding analyses and results processing 
+- The workflow can be further applied for newly emerging varints to facilotate design of improved inhibitors
 
 **For MP1**:
-- The binding of MP1 to RBD of SARS-CoV-2 omicron and delta+ is significantly weakened compared to RBD of SARS-CoV-2 wild-type 
-- No improving mutations are found by FlexddG. The structural redesign may be preferable in this case
+- MP1 showed lowered binding to omicron and delta+ RBD. No improving mutations were found by FlexddG
+- A structural redesign may be preferable in this case
 
 **For MP3**
-- MP3 exhibits lovered binding to delta+ variant, while binding to other variants is estimated same as to wild type or even more affine
-- MP3(D37R) mutant with enhanced binding to delta+ RBD is proposed
+- MP3 exhibited lovered binding to delta+ variant, while binding to other variants is estimated same as to wild type or even more affine
+- MP3(D37R) mutant with enhanced binding to delta+ RBD was proposed
 - Omicron RBD is estimated to bind MP3 well without mutations
