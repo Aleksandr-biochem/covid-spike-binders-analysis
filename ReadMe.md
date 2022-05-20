@@ -77,7 +77,7 @@ Within this work a panel of SARS-CoV-2 variants was analyzed: alpha, delta, delt
 Before modification of miniproteins its necessity was checked. This was obtained by MM-GBSA free binding energy estimations for complexes of MP1 with mutant RBD in comparison to wt complex. According to these result, MP1 shows worse affinity to all RBD variants then to wt regardless solvant model (see ΔΔG bar charts below). Among all variants significant decrease in free binding energy is noticed for delta+ and omicron RBDs, making the modification of MP1 highly important.
 
 <p align="center">
-  <img src="/images/MP1_dG_GBSA.png" width="600">
+  <img src="/images/MP1_dG_GBSA_igb8.png" width="600">
 </p> 
 
 The decomposition results below demonstrate that the revealed increased destabilization of omciron and delta+ complexes is mostly caused by local interactions. This detabilization is enhanced due to Lys 417 to Asn 417 substitution in RBD, which, probably, lead to the disappearance of important electrostatic interactions (salt bridges and hydrogen bonds) between 417 residue of RBD and Asp30 of MP1. As the destabiliation pattern has local behaviour, modification of MP1 is believed to solve the affinity issue.
