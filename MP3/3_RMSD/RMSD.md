@@ -33,5 +33,5 @@ Below is an example for MP3/delta RDB complex:
 </p>
 
 <p align="center">
-  <img src="results_plots/rmsd_illustration.png" width="700">
+  <img src="results_plots/rmsd_illustration.png" width="550">
 </p>
