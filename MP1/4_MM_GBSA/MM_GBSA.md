@@ -28,7 +28,7 @@ python3 mmgbsa_summary.py -i ../../2_MD_Amber/sample/ -o ../tables -y y
 ```
 4. In order to plot MM-GBSA binding free energies execute `gbsa_barplot.py` providing the path to data folder. The plot represents the result for both solvate models (igb2 and igb8) and ddG variance for mutant. Variance here - the difference between wt and mutant binding energies. The data includes metrices precomputed from 500 ns:
 ```sh
-python3 gbsa_barplot.py -i ../tables/ -o ./
+python3 gbsa_barplot.py -i ../tables/ -o ./ -r 2
 ```
 The plots are saved in the current directory. If you add new complex type to the analysis, modify `mutants` and `labels` variables inside the script.
 
