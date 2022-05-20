@@ -108,8 +108,7 @@ if __name__ == '__main__':
     prefix = "../../2_MD_Amber" # specifies the location of MD dirs
 
     # scpecify mutants for analysis
-    # mutants = ["wt+mp3", "alpha+mp3", "delta+mp3", "delta_plus+mp3", "omicron+mp3", "delta_p+mp3_d37r", "delta_p+mp3_d37r_t10w"]
-    mutants = ["wt+mp3", "delta_plus+mp3"]
+    mutants = ["wt+mp3", "alpha+mp3", "delta+mp3", "delta_plus+mp3", "omicron+mp3", "delta_p+mp3_d37r", "delta_p+mp3_d37r_t10w"]
 
     for mutant in mutants:
 
