@@ -70,8 +70,41 @@ There are two main folders with materials and results for **MP1** and **MP3** an
 <a name="sec5"></a>
 ### Results for MP1:
 
-Within this work a panel of SARS-CoV-2 varints was analyzed: alpha, delta, delta+ and omicron.
+Within this work a panel of SARS-CoV-2 variants was analyzed: alpha, delta, delta+ and omicron. 
 
+**MM-GBSA:**
+
+Before modification of miniproteins its necessity was checked. This was obtained by MM-GBSA free binding energy estimations for complexes of MP1 with mutant RBD in comparison to wt complex. According to these result, MP1 shows worse affinity to all RBD variants then to wt regardless solvant model (see ΔΔG bar charts below). Among all variants significant decrease in free binding energy is noticed for delta+ and omicron RBDs, making the modification of MP1 highly important.
+
+<p align="center">
+  <img src="/images/MP1_dG_GBSA.png" width="600">
+</p> 
+
+The decomposition results below demonstrate that the revealed increased destabilization of omciron and delta+ complexes is mostly caused by local interactions. This detabilization is enhanced due to Lys 417 to Asn 417 substitution in RBD, which, probably, lead to the disappearance of important electrostatic interactions (salt bridges and hydrogen bonds) between 417 residue of RBD and Asp30 of MP1. As the destabiliation pattern has local behaviour, modification of MP1 is believed to solve the affinity issue.
+
+<p align="center">
+  <img src="/images/omicron_vs_wt_igb8.png" width="600">
+</p> 
+
+<p align="center">
+  <img src="/images/delta_plus_vs_wt_igb8.png" width="600">
+</p> 
+
+And as it can be noticed via structural visualization, indeed, existing in wt complex Asp30-Lys317 MP1-RBD interactions is disabled in the case of omicron complex variant.
+
+<p align="center">
+  <img src="/images/wt_mp1.png" width="600">
+</p> 
+
+<p align="center">
+  <img src="/images/omicron_mp1.png" width="600">
+</p> 
+
+Yo improve the binding of MP1 the MP1/RBD delta+ complex was analyzed in FlexddG to design MP1 mutants. The heatmap below shows FlexddG scores for each mutation. Mutations with scores below -1 are considered stabilising. Practically all mutations appear to be destabilizing. The only one leading to the increase of free binding energy is Glu3Trp mutation. Though it may lead to formation of new interactions, it also causes the introduction of sufficient aromatic group. Thus could disrupt the MP1 and complex structure. According to these findings, structural remodelling rather modification of MP1 is preferable to improve its binding to RBD.
+
+<p align="center">
+  <img src="/images/delta_plus_flexddG.png" width="700">
+</p>
 
 <a name="sec6"></a>
 ### Results for MP3:
