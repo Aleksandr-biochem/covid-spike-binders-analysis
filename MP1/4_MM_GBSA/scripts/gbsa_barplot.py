@@ -22,9 +22,9 @@ def set_axis_parameters(df, fig=None, ax=None, run=""):
     if (fig is not None and ax is not None):
         x_ticks = ['Alpha', 'Delta', r'Delta$^+$', 'Omicron']
         ax.set_xticks(range(0,4), x_ticks)
-        ax.tick_params(axis='both', which='major', labelsize=30)        
+        ax.tick_params(axis='both', which='major', labelsize=20)        
         ax.set_ylabel(r"$\bf{\Delta \Delta G}$", fontsize=20, fontweight="bold")
-        ax.set_title("Difference of free binding energy (\u0394G) between wt and mutant MP1-RBD complexes under igb{0} model".format(run), fontweight="bold", fontsize=20, pad=30)
+        ax.set_title("Difference of free binding energy (\u0394G) \n between wt and mutant MP1-RBD complexes under igb{0} model".format(run), fontweight="bold", fontsize=20, pad=30)
         return fig, ax
     else:
         print("Plot was not assigned for attaching subplots. Assign it first.")
@@ -59,7 +59,7 @@ def plot_gbsa_bar(path=".", outpth=".", run=""):
     complexes = ['alpha', 'delta', 'delta_plus', 'omicron']
     #gbsa_path = "/home/xenia/cov2/trj/LCB1/summary_gbsa/"
     gbsa_path = path
-    fig, ax = plt.subplots(1,figsize=(18, 14))
+    fig, ax = plt.subplots(1,figsize=(15, 10))
     # prepare dataframe
     df = pd.DataFrame(columns=complexes)
     # load data from all complexes per igb model

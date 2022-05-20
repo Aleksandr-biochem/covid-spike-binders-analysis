@@ -39,6 +39,10 @@ All the results can be obtained from `result_plots` directory.
 MM-GBSA results represent ΔΔG in relation to MP1/wt complex. This metric was choen as being more convinient for representation of free binding energy change from wt state of complex. Depending on the model chosen for MM-GBSA calculation (igb2 or igb8) predictions don't differ. Binding free energy estimations shows that in the case of all mutants MP1 affinity dramatically decrease (see ΔΔG bar charts below). Among which omicron possesses the most significant drop of ΔG.  
 
 <p align="center">
-  <img src="result_plots/MP1_dG_GBSA.png" width="600">
+  <img src="result_plots/MP1_dG_GBSA_igb2.png" width="600">
+</p>
+
+<p align="center">
+  <img src="result_plots/MP1_dG_GBSA_igb8.png" width="600">
 </p>
 
