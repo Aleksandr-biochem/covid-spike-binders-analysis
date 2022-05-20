@@ -42,7 +42,6 @@ for mutant in mutants:
                 new_atom = new_residue.atoms[ind_atom]
                 new_atom.name = atom_trj_ref.name
                 new_atom.id = atom_trj_ref.id
-                # new_atom.id = ind_atom + 1
                 new_atom.r = atom_trj_ref.r
 
     print(new_frame)
