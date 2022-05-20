@@ -58,14 +58,14 @@ for compl in mutants:
         ### read reference structure
         path_to_reference = f"{trj_dir}/0_prepare/protein_named.pdb"
         reference = PdbFile(path_to_reference).frames()[0]
-        lcb = reference.molecules.filter(mName == "A")
+        mp = reference.molecules.filter(mName == "A")
         rbd = reference.molecules.filter(mName == "B")
-        rids_lcb = [residue.id.serial for residue in lcb.residues]
+        rids_mp = [residue.id.serial for residue in mp.residues]
         rids_rbd = [residue.id.serial for residue in rbd.residues]
 
         ### set first rid in case end-to-end numbering (relevant for mmgbsa analysis)
-        lcb_start_rid = rids_lcb[0]
-        rbd_start_rid = rids_lcb[-1] + 1
+        mp_start_rid = rids_mp[0]
+        rbd_start_rid = rids_mp[-1] + 1
 
         ### load decomp_data
         decomp_data = load_pickle_data(pcike_file=f"{decomposition_dir}/MMPBSA_data_{compl}_{run}.pickle")
@@ -75,7 +75,7 @@ for compl in mutants:
         ligand_residue_pairs = np.array([*decomp_data['decomp']["gb"]['ligand']["TDC"]])
         complex_residue_pairs = np.array([*decomp_data['decomp']["gb"]['complex']["TDC"]])
 
-        ### get interacting residues lcb+rbd
+        ### get interacting residues mp+rbd
         mask_intra_residues = np.isin(complex_residue_pairs, receptor_residue_pairs) | np.isin(complex_residue_pairs, ligand_residue_pairs)
         complex_residue_pairs = complex_residue_pairs[~(mask_intra_residues)]
         mask_pairs = [True if int(residue_pairs.split("-")[0]) <= rbd_start_rid else False for residue_pairs in complex_residue_pairs]
@@ -93,17 +93,17 @@ for compl in mutants:
             total_energy = decomp_data['decomp']["gb"]['complex']["TDC"][f"{rid_first}-{rid_second}"]['tot'].copy() + \
                            decomp_data['decomp']["gb"]['complex']["TDC"][f"{rid_second}-{rid_first}"]['tot'].copy()
 
-            rid_lcb = rids_lcb[int(rid_first) - lcb_start_rid]
+            rid_mp = rids_mp[int(rid_first) - mp_start_rid]
             rid_rbd = rids_rbd[int(rid_second) - rbd_start_rid]
 
-            rname_lcb = lcb.residues.filter(rId == rid_lcb)[0].name
+            rname_mp = mp.residues.filter(rId == rid_mp)[0].name
             rname_rbd = rbd.residues.filter(rId == rid_rbd)[0].name
 
             total_energy_avg, total_energy_std = total_energy[first_frame:].mean(), total_energy[first_frame:].std()
 
             ### retaining only those pairs, whose trajectory-average energy exceeded 1 kcal/mol 
             if abs(total_energy_avg) > 1.0:
-                temp = {"rId_lcb": rid_lcb, "rName_lcb": rname_lcb, "rId_rbd": rid_rbd, "rName_rbd": rname_rbd, "total_energy_avg": total_energy_avg, "total_energy_std": total_energy_std}
+                temp = {"rId_mp": rid_mp, "rName_mp": rname_mp, "rId_rbd": rid_rbd, "rName_rbd": rname_rbd, "total_energy_avg": total_energy_avg, "total_energy_std": total_energy_std}
                 out_decomp_df = pd.concat([out_decomp_df, pd.DataFrame(temp, index=[0])])
 
         # save data

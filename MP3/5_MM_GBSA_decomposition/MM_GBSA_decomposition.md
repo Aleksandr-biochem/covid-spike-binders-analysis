@@ -1,7 +1,7 @@
 # 4. MM-GBSA binding free energy estimation
+
 Requirements:
-- Amber20
-- mpi
+- Amber20 (build with MPI)
 
 Within this step MM-GBSA decomposition calculations are performed to investigate contributions of distinct residue pairs in MP3/RBD binding. 
 

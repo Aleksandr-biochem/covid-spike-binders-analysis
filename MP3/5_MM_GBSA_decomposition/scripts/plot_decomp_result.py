@@ -135,48 +135,44 @@ if __name__ == "__main__":
     path_to_data = args.i[0]
     igb = args.igb[0]
 
+    # specify mutants for the analysis
+    mutants = ["alpha+mp3", "delta+mp3", "delta_plus+mp3", "omicron+mp3", "delta_p+mp3_d37r", "delta_p+mp3_d37r_t10w"]
+
     ### read wt structure
     path_to_wt = f"../../2_MD_Amber/wt+mp3/0_prepare/protein_named.pdb"
     ref_wt = PdbFile(path_to_wt).frames()[0]
 
-    # possible mutants
-    mutants = ["alpha+mp3", "delta+mp3", "delta_plus+mp3", "omicron+mp3", "delta_p+mp3_d37r", "delta_p+mp3_d37r_t10w"]
+    # read decomposition data for wt and initiate union residue parirs set
+    df_decomp_wt = pd.read_csv(os.path.join(path_handling_decomp_dir, f"wt+mp3_{igb}_salt150_decomp.csv"))
+    residue_pairs_wt = list(zip(df_decomp_wt["rId_mp"].values, df_decomp_wt["rId_rbd"].values))
+    union_residue_pairs = set(residue_pairs_wt) 
 
     ## gather union, overlap and unique residues for all complexes
     print("Analyzing interacting residues")
-    df_decomp_wt = pd.read_csv(os.path.join(path_to_data, f"wt+mp3_{igb}_salt150_decomp.csv"))
-    residue_pairs_wt = list(zip(df_decomp_wt["rId_lcb"].values, df_decomp_wt["rId_rbd"].values))
-    union_residue_pairs = set(residue_pairs_wt) 
-    overlap_residue_pairs = set(residue_pairs_wt)
-
+    overlapping_desidues = dict() # collect overlaping residues sets for each mutant-wt pair
     found_mutants = []
     for mutant in mutants:
         # check  if data for mutant exists
         if not path.exists(os.path.join(path_to_data, f"{mutant}_{igb}_salt150_decomp.csv")):
             continue
         else: 
-            found_mutants.append(mutant)   
-            # read mutant reference
-            path_to_mutant = f"../../2_MD_Amber/{mutant}/0_prepare/protein_named.pdb"
-            ref_mutant = PdbFile(path_to_mutant).frames()[0]
+            found_mutants.append(mutant)  
 
-            ### read parsed decomp data with residue pairs, whose trajectory-average energy exceeded 1 kcal/mol
-            df_decomp_mutant = pd.read_csv(os.path.join(path_to_data, f"{mutant}_{igb}_salt150_decomp.csv"))
-            ### exctract union, overlap and unique residues in wt and mutant complex. It needs for generate data_matrix
-            residue_pairs_mutant = list(zip(df_decomp_mutant["rId_lcb"].values, df_decomp_mutant["rId_rbd"].values))
+            # read parsed decomp data with residue pairs, whose trajectory-average energy exceeded 1 kcal/mol
+            df_decomp_mutant = pd.read_csv(os.path.join(path_handling_decomp_dir, f"decomp_{mutant}_{igb}_salt150_decomp.csv"))
+            residue_pairs_mutant = list(zip(df_decomp_mutant["rId_mp"].values, df_decomp_mutant["rId_rbd"].values))
 
+            # udate union residues in wt and mutant complexes and extract overlap for this exact pair
             union_residue_pairs = union_residue_pairs | set(residue_pairs_mutant)
-            overlap_residue_pairs = overlap_residue_pairs & set(residue_pairs_mutant)
+            overlapping_desidues[mutant] = list(set(residue_pairs_wt) & set(residue_pairs_mutant))
 
-    union_residue_lcb, union_residue_rbd = map(list, zip(*union_residue_pairs))
-    union_residue_lcb, union_residue_rbd = np.unique(union_residue_lcb), np.unique(union_residue_rbd)
-    union_residue_lcb.sort()
-    union_residue_rbd.sort()  
+    # process residues in union set 
+    union_residue_mp, union_residue_rbd = map(list, zip(*union_residue_pairs))
+    union_residue_mp, union_residue_rbd = np.unique(union_residue_mp), np.unique(union_residue_rbd)
+    union_residue_mp.sort()
+    union_residue_rbd.sort()
 
-    overlap_residue_pairs = list(overlap_residue_pairs)    
-
-    unique_residue_pairs_wt = list(set(residue_pairs_wt) - set(overlap_residue_pairs))
-
+    # plot differenctial contact map for each mutant
     for mutant in found_mutants:
         print(f"Plotting {mutant}, {igb}")
 
@@ -184,40 +180,42 @@ if __name__ == "__main__":
         path_to_mutant = f"../../2_MD_Amber/{mutant}/0_prepare/protein_named.pdb"
         ref_mutant = PdbFile(path_to_mutant).frames()[0]
 
-
         ### read parsed decomp data with residue pairs, whose trajectory-average energy exceeded 1 kcal/mol
-        df_decomp_mutant = pd.read_csv(os.path.join(path_to_data, f"{mutant}_{igb}_salt150_decomp.csv"))
-        ### exctract union, overlap and unique residues in wt and mutant complex. It needs for generate data_matrix
-        residue_pairs_mutant = list(zip(df_decomp_mutant["rId_lcb"].values, df_decomp_mutant["rId_rbd"].values))
+        df_decomp_mutant = pd.read_csv(os.path.join(path_handling_decomp_dir, f"decomp_{mutant}_{igb}_salt150_decomp.csv"))
+        residue_pairs_mutant = list(zip(df_decomp_mutant["rId_mp"].values, df_decomp_mutant["rId_rbd"].values))
 
+        # get unique residues and overlap for this particular pair of complexes
+        overlap_residue_pairs = overlapping_desidues[mutant]
         unique_residue_pairs_mutant = list(set(residue_pairs_mutant) - set(overlap_residue_pairs))
+        unique_residue_pairs_wt = list(set(residue_pairs_wt) - set(overlap_residue_pairs))
 
         ### generate data_matrix for plot heatmap
-        ### if residue_pair doesn't exist in df_decomp the corresponding total_eneregy is asssigned zero
-        data_matrix = np.zeros((len(union_residue_lcb), len(union_residue_rbd)))
-        for ind_1, rid_lcb in enumerate(union_residue_lcb):
+        data_matrix = np.zeros((len(union_residue_mp), len(union_residue_rbd)))
+        for ind_1, rid_mp in enumerate(union_residue_mp):
             for ind_2, rid_rbd in enumerate(union_residue_rbd):
-                if (rid_lcb, rid_rbd) in overlap_residue_pairs:
+                if (rid_mp, rid_rbd) in overlap_residue_pairs:
                     total_energy_wt = df_decomp_wt["total_energy_avg"][
-                        (df_decomp_wt["rId_lcb"] == rid_lcb) & (df_decomp_wt["rId_rbd"] == rid_rbd)].values[0]
+                        (df_decomp_wt["rId_mp"] == rid_mp) & (df_decomp_wt["rId_rbd"] == rid_rbd)].values[0]
                     total_energy_mutant = df_decomp_mutant["total_energy_avg"][
-                        (df_decomp_mutant["rId_lcb"] == rid_lcb) & (df_decomp_mutant["rId_rbd"] == rid_rbd)].values[0]
+                        (df_decomp_mutant["rId_mp"] == rid_mp) & (df_decomp_mutant["rId_rbd"] == rid_rbd)].values[0]
                     data_matrix[ind_1, ind_2] = total_energy_mutant - total_energy_wt
-                elif (rid_lcb, rid_rbd) in unique_residue_pairs_mutant:
+                elif (rid_mp, rid_rbd) in unique_residue_pairs_mutant:
                     total_energy_mutant = df_decomp_mutant["total_energy_avg"][
-                        (df_decomp_mutant["rId_lcb"] == rid_lcb) & (df_decomp_mutant["rId_rbd"] == rid_rbd)].values[0]
+                        (df_decomp_mutant["rId_mp"] == rid_mp) & (df_decomp_mutant["rId_rbd"] == rid_rbd)].values[0]
                     data_matrix[ind_1, ind_2] = total_energy_mutant
-                elif (rid_lcb, rid_rbd) in unique_residue_pairs_wt:
+                elif (rid_mp, rid_rbd) in unique_residue_pairs_wt:
                     total_energy_wt = df_decomp_wt["total_energy_avg"][
-                        (df_decomp_wt["rId_lcb"] == rid_lcb) & (df_decomp_wt["rId_rbd"] == rid_rbd)].values[0]
+                        (df_decomp_wt["rId_mp"] == rid_mp) & (df_decomp_wt["rId_rbd"] == rid_rbd)].values[0]
                     data_matrix[ind_1, ind_2] = - total_energy_wt
+                else:
+                    data_matrix[ind_1, ind_2] = 0 # if residue_pair doesn't exist in df_decomp the corresponding total_eneregy is asssigned zero
 
         ### define rnames wt and mutant for labelling heatmap axes
         rnames_wt_rbd = [res.name for res in ref_wt.residues.filter(rId.is_in(set(union_residue_rbd)))]
         rnames_mutant_rbd = [res.name for res in ref_mutant.residues.filter(rId.is_in(set(union_residue_rbd)))]
 
-        rnames_wt_lcb = [res.name for res in ref_wt.residues.filter(rId.is_in(set(union_residue_lcb)))]
-        rnames_mutant_lcb = [res.name for res in ref_mutant.residues.filter(rId.is_in(set(union_residue_lcb)))]
+        rnames_wt_mp = [res.name for res in ref_wt.residues.filter(rId.is_in(set(union_residue_mp)))]
+        rnames_mutant_mp = [res.name for res in ref_mutant.residues.filter(rId.is_in(set(union_residue_mp)))]
 
         col_labels = [f'{r_name1}\n{r_num}\n{r_name2}' if r_name1 != r_name2 else f'{r_name1}\n{r_num}'
                       for r_name1, r_num, r_name2 in
@@ -227,9 +225,9 @@ if __name__ == "__main__":
 
         row_labels = [f'{r_name1}{r_num}{r_name2}' if r_name1 != r_name2 else f'{r_name1}{r_num}'
                       for r_name1, r_num, r_name2 in
-                      zip(rnames_wt_lcb,
-                          union_residue_lcb,
-                          rnames_mutant_lcb)]
+                      zip(rnames_wt_mp,
+                          union_residue_mp,
+                          rnames_mutant_mp)]
 
         # check HIS-HIE substitution
         for i in range(len(row_labels)):
