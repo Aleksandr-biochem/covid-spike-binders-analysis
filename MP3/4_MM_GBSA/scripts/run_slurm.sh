@@ -17,8 +17,7 @@ typeset -i i END
 TRJ_FOLDER="../../2_MD_Amber"
 
 # an array of mutants
-# declare -a mutants=("wt+mp3" "alpha+mp3" "delta+mp3" "delta_plus+mp3" "omicron+mp3" "delta_p+mp3_d37r" "delta_p+mp3_d37r_t10w")
-declare -a mutants=("delta_plus+mp3")
+declare -a mutants=("wt+mp3" "alpha+mp3" "delta+mp3" "delta_plus+mp3" "omicron+mp3" "delta_p+mp3_d37r" "delta_p+mp3_d37r_t10w")
 
 cd "${TRJ_FOLDER}"
 
