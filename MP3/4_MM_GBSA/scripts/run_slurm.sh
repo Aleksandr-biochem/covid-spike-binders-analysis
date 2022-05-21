@@ -7,9 +7,9 @@
 
 # state amber source
 # note! if MPI was used with task preparations then the amber build with MPI is required
-source /home/oleg/amber/amber.sh
+source /path/to/amber/amber.sh
 # state python environment source
-source ~/cov2/venv_cov2/bin/activate
+source ~/path/to/python/venv/bin/activate
 
 
 typeset -i i END
