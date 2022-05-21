@@ -1,6 +1,6 @@
-PATH_TO_VENV="/home/xenia/cov2/venv/"
+PATH_TO_VENV="path to pip venv with installed biobb and propka3"
 PATH_TO_BIOBB_STRUCTURE_CHECKING=$PATH_TO_VENV/lib/python3.8/site-packages/biobb_structure_checking/check_structure.py
-PATH_TO_PHENIX="/home/olebedenko/tools/phenix-1.19.2-4158/phenix_env.sh"
+PATH_TO_PHENIX="path to phenix-1.19.2-4158/phenix_env.sh"
 
 mkdir -p tmp
 

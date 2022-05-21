@@ -25,7 +25,7 @@ def renumber_resID():
         trj_ref_mols = [rcsb_model.molecules.filter(mName == mol_name)[0] for mol_name in rcsb_molnames]
 
         # specify output
-        if mutant in ["omicron+lcb1", "wt+lcb1"]:
+        if mutant in ["omicron+mp1", "wt+mp1"]:
             if not os.path.exists(f"../../2_MD_Amber/sample/{name}+mp1_2/0_prepare/"):
                 os.mkdir(f"../../2_MD_Amber/sample/{name}+mp1_2/0_prepare/")
            

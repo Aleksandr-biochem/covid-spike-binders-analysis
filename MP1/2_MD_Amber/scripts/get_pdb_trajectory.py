@@ -1,8 +1,9 @@
 import sys 
-sys.path.append('../../../handling/LCB1/md-utils/')
+# Add path to md-utils repository
+sys.path.append('path_to_md-utils')
 from md_utils.frame.select import get_sec_str_residues_predicate
 from pyxmolpp2.pipe import AssembleQuaternaryStructure, Align
-from pyxmolpp2 import PdbFile, Trajectory, AmberNetCDF, mName
+from pyxmolpp2 import PdbFile, Trajectory, AmberNetCDF, mName, aName
 import os
 from tqdm import tqdm
 
@@ -31,9 +32,7 @@ for mutant in mutants:
         traj.extend(AmberNetCDF(os.path.join(os.path.join(path_to_trj_dir, "6_run"), fname % (ind))))
 
     # set predicate sec.str CA atoms
-    lcb_sec_str_ca_predicate = get_sec_str_residues_predicate(frame=trj_ref, molnames=["A"])
-    rbd_sec_str_ca_predicate = get_sec_str_residues_predicate(frame=trj_ref, molnames=["B"])
-    all_sec_str_ca_predicate = get_sec_str_residues_predicate(frame=trj_ref, molnames=["A", "B"])
+    all_sec_str_ca_predicate = get_sec_str_residues_predicate(frame=trj_ref, molnames=["A", "B"]) & (aName == "CA")
 
     # save trajectory in pdb
     frame_atoms = None

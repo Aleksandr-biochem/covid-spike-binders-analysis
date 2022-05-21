@@ -1,6 +1,6 @@
 import os
 import sys
-sys.path.append('../../handling/LCB1/md-utils/md_utils')
+sys.path.append('path_to_md-utils')
 from tqdm import tqdm
 import argparse
 
@@ -16,7 +16,7 @@ def rmsd_calc_wt_omcr(mutant="", trj_path=".", outpth="."):
   Calculate RMSD between Ca atoms of residues on interface
   for wt and omicron variants.
 
-  param: mutant - for which mutant RMSD is calculated (e.g. alpha+lcb1, omicron+lcb1)
+  param: mutant - for which mutant RMSD is calculated (e.g. alpha+mp1, omicron+mp1)
   param: trj_path - Path to directory with MD analysis of trajectories
   param: outpth - Path to output directory where result is stored
 
@@ -39,17 +39,17 @@ def rmsd_calc_wt_omcr(mutant="", trj_path=".", outpth="."):
       traj.extend(AmberNetCDF(os.path.join(os.path.join(path_to_trj_dir, "6_run"), fname % (ind))))
 
   # set predicate sec.str CA atoms
-  lcb_sec_str_ca_predicate = get_sec_str_residues_predicate(frame=trj_ref, molnames=["A"]) & (aName == "CA")
+  mp_sec_str_ca_predicate = get_sec_str_residues_predicate(frame=trj_ref, molnames=["A"]) & (aName == "CA")
   rbd_sec_str_ca_predicate = get_sec_str_residues_predicate(frame=trj_ref, molnames=["B"]) & (aName == "CA")
   all_sec_str_ca_predicate = get_sec_str_residues_predicate(frame=trj_ref, molnames=["A", "B"]) & (aName == "CA")
 
   #  reference atoms for alignment
-  ref_lcb_sec_str_ca = trj_ref.atoms.filter(lcb_sec_str_ca_predicate)
+  ref_mp_sec_str_ca = trj_ref.atoms.filter(mp_sec_str_ca_predicate)
   ref_rbd_sec_str_ca = trj_ref.atoms.filter(rbd_sec_str_ca_predicate)
   ref_all_sec_str_ca = trj_ref.atoms.filter(all_sec_str_ca_predicate)
 
   #  create data variables
-  rmsd_lcb_sec_str_ca = np.zeros(int(traj.size / stride))
+  rmsd_mp_sec_str_ca = np.zeros(int(traj.size / stride))
   rmsd_rbd_sec_str_ca = np.zeros(int(traj.size / stride))
   rmsd_all_sec_str_ca = np.zeros(int(traj.size / stride))
 
@@ -59,15 +59,15 @@ def rmsd_calc_wt_omcr(mutant="", trj_path=".", outpth="."):
                                                                  reference=trj_ref)):
       if frame.index == 0:
           # create variables for selections from atoms of frame
-          frame_lcb_sec_str_ca = frame.atoms.filter(lcb_sec_str_ca_predicate)
+          frame_mp_sec_str_ca = frame.atoms.filter(mp_sec_str_ca_predicate)
           frame_rbd_sec_str_ca = frame.atoms.filter(rbd_sec_str_ca_predicate)
           frame_all_sec_str_ca = frame.atoms.filter(all_sec_str_ca_predicate)
 
-      # rmsd for sec.str. CA atoms of lcb
-      alignment = frame_lcb_sec_str_ca.alignment_to(ref_lcb_sec_str_ca)
-      crd = frame_lcb_sec_str_ca.coords.values.copy()
+      # rmsd for sec.str. CA atoms of mp
+      alignment = frame_mp_sec_str_ca.alignment_to(ref_mp_sec_str_ca)
+      crd = frame_mp_sec_str_ca.coords.values.copy()
       crd = crd @ alignment.matrix3d().T + alignment.vector3d().values
-      rmsd_lcb_sec_str_ca[int(frame.index / stride)] = calc_rmsd(ref_lcb_sec_str_ca.coords.values,
+      rmsd_mp_sec_str_ca[int(frame.index / stride)] = calc_rmsd(ref_mp_sec_str_ca.coords.values,
                                                                  crd
                                                                  )
 
@@ -90,12 +90,12 @@ def rmsd_calc_wt_omcr(mutant="", trj_path=".", outpth="."):
   #rmsd_fnout = f"../../2_MD_Amber/sample/RMSD/{mutant}+mp1_rmsd_ca_ss.csv"
   rmsd_fnout = os.path.join(outpth, f"{mutant}+mp1_rmsd_ca_ss.csv")
   col_names = [r"time_ns",
-               r"sec.str. C$\rm\alpha$ lcb [$\rm\AA$]",
+               r"sec.str. C$\rm\alpha$ mp [$\rm\AA$]",
                r"sec.str. C$\rm\alpha$ rbd [$\rm\AA$]",
                r"sec.str. C$\rm\alpha$ [$\rm\AA$]"]
 
   time = np.linspace(trj_start, trj_length, int(traj.size / stride))
-  pd.DataFrame(np.vstack((time, rmsd_lcb_sec_str_ca, rmsd_rbd_sec_str_ca, rmsd_all_sec_str_ca)).T,
+  pd.DataFrame(np.vstack((time, rmsd_mp_sec_str_ca, rmsd_rbd_sec_str_ca, rmsd_all_sec_str_ca)).T,
                columns=col_names).to_csv(rmsd_fnout,
                                          index=False)
 

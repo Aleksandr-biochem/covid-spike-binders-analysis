@@ -12,14 +12,14 @@ from matplotlib import rcParams
 
 def rmsd_graphs(trj, mutant, ax):
     """
-    Plot RMSD ditributions of LCB, RBD and complex per each ns.
+    Plot RMSD ditributions of MP, RBD and complex per each ns.
 
     param: trj - Object with RMSD metrics per trj (csv table)
-    param: mutant - strain for which plot is generated (e.g. alpha+lcb1, omicron+lcb1)
+    param: mutant - strain for which plot is generated (e.g. alpha+MP1, omicron+MP1)
     param: ax - layer of subplot
 
     """
-    trj.columns = ['time_ns', 'Ca_lcb', 'Ca_rbd', 'Ca_complex']
+    trj.columns = ['time_ns', 'Ca_mp', 'Ca_rbd', 'Ca_complex']
     cols = list(trj.columns)
     n = len(cols)
     colors = ['slateblue', 'navy', 'red']
@@ -45,7 +45,7 @@ def rmsd_graphs(trj, mutant, ax):
 
 if __name__ == "__main__":
     # parse arguments
-    parser = argparse.ArgumentParser(description='Plot rmsd distribution of LCB1, RBD and complex per each ns of simulated trajectories for all strains:')
+    parser = argparse.ArgumentParser(description='Plot rmsd distribution of MP1, RBD and complex per each ns of simulated trajectories for all strains:')
     
     parser.add_argument('-i', nargs=1, help='Path to folder containing RMSD results', required=True, default="../../tables/RMSD")
     

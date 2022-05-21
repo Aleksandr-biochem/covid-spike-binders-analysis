@@ -115,7 +115,7 @@ if __name__ == "__main__":
     # parse arguments
     parser = argparse.ArgumentParser(description='Summarize information about ddG from FlexddG output folders:')
     
-    parser.add_argument('-i', nargs=1, help='Path to folder containing subfolders with FlexddG output', required=True, default="./LCB1")
+    parser.add_argument('-i', nargs=1, help='Path to folder containing subfolders with FlexddG output', required=True, default="./MP1")
 
     parser.add_argument('-s', nargs=1,   help='Strain to analyze', required=True)
     

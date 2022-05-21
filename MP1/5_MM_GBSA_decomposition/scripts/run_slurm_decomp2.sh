@@ -6,9 +6,9 @@
 #SBATCH -w, --nodelist=bionmr-mom-002,bionmr-mom-003
 
 # We need amber 
-source /home/oleg/amber/amber.sh
+source /home/username/amber/amber.sh
 # We need python enviroment
-source /home/xenia/cov2/venv/bin/activate
+source /home/username/cov2/venv/bin/activate
 
 typeset -i i END
 TRJ_FOLDER="../../2_MD_Amber/sample/" # Trajectory folder (i.e. where 1_build resides)

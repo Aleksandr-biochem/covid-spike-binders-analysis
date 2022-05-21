@@ -57,7 +57,6 @@ def plot_gbsa_bar(path=".", outpth=".", run=""):
     """
 
     complexes = ['alpha', 'delta', 'delta_plus', 'omicron']
-    #gbsa_path = "/home/xenia/cov2/trj/LCB1/summary_gbsa/"
     gbsa_path = path
     fig, ax = plt.subplots(1,figsize=(15, 10))
     # prepare dataframe

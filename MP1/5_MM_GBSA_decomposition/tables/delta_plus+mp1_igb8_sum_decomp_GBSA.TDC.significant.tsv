@@ -1,4 +1,4 @@
-rId_lcb	rName_lcb	rId_rbd	rName_rbd	total_energy_avg	total_energy_std
+rId_mp	rName_mp	rId_rbd	rName_rbd	total_energy_avg	total_energy_std
 3	GLU	476	GLY	-2.2149810676168	1.8541154587233724
 3	GLU	477	SER	-4.1541979056144	5.682854451078651
 3	GLU	486	PHE	-1.6381156460775999	1.2328558566583503

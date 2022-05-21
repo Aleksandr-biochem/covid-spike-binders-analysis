@@ -31,7 +31,7 @@ sbatch run_slurm_decomp2.sh
 
 Note that processing can take a while, because \_MMPBSA\_info is time-consuming. However, after first script run the parsed data is dumped into picke, so the next parsing will be more rapid. By default frames are analyzed starting from 500. It can be changed in `first_frame` variable inside the script. Also the the overwriting of pickle is possible in the casethe key -y would be set n/N/No (whatever except "y").
 ```sh
-python3 decomp_analysis.py
+python3 decomp_analysis.py -i ../../2_MD_Amber/sample -o ./ -y y
 ```
 
 4. In order to plot decomposition results as differential contact maps use `plot_decomp_result_1.py`. By dafault for both solvate models plots are created. To specify the only - change iteration script sctructure. Also for all mutants maps are contructed, however the list can be specified by `mutants` variable in the script body. The wt directory should also be provided (in the case you have another folder structure):

@@ -1,8 +1,8 @@
 HEADER    VIRAL PROTEIN                           02-SEP-20   7JZU              
-TITLE     SARS-COV-2 SPIKE IN COMPLEX WITH LCB1 (LOCAL REFINEMENT OF THE RBD AND
-TITLE    2 LCB1)                                                                
+TITLE     SARS-COV-2 SPIKE IN COMPLEX WITH MP1 (LOCAL REFINEMENT OF THE RBD AND
+TITLE    2 MP1)                                                                
 COMPND    MOL_ID: 1;                                                            
-COMPND   2 MOLECULE: LCB1;                                                      
+COMPND   2 MOLECULE: MP1;                                                      
 COMPND   3 CHAIN: A;                                                            
 COMPND   4 ENGINEERED: YES;                                                     
 COMPND   5 MOL_ID: 2;                                                           
@@ -85,7 +85,7 @@ REMARK 245   PARTICLE TYPE                  : POINT
 REMARK 245   NAME OF SAMPLE                 : DE NOVO DESIGN OF PICOMOLAR       
 REMARK 245                                    SARS-COV-2 MINIPROTEIN            
 REMARK 245                                    INHIBITORS; SARS-COV-2 SPIKE;     
-REMARK 245                                    LCB1                              
+REMARK 245                                    MP1                              
 REMARK 245   SAMPLE CONCENTRATION (MG ML-1) : NULL                              
 REMARK 245   SAMPLE SUPPORT DETAILS         : NULL                              
 REMARK 245   SAMPLE VITRIFICATION DETAILS   : NULL                              
@@ -1286,8 +1286,8 @@ REMARK 500 REMARK: NULL
 REMARK 900                                                                      
 REMARK 900 RELATED ENTRIES                                                      
 REMARK 900 RELATED ID: EMD-22574   RELATED DB: EMDB                             
-REMARK 900 SARS-COV-2 SPIKE IN COMPLEX WITH LCB1 (LOCAL REFINEMENT OF THE RBD   
-REMARK 900 AND LCB1)                                                            
+REMARK 900 SARS-COV-2 SPIKE IN COMPLEX WITH MP1 (LOCAL REFINEMENT OF THE RBD   
+REMARK 900 AND MP1)                                                            
 DBREF  7JZU A   -2    58  PDB    7JZU     7JZU            -2     58             
 DBREF  7JZU B    1  1208  UNP    P0DTC2   SPIKE_SARS2      1   1208             
 SEQADV 7JZU GLY B  682  UNP  P0DTC2    ARG   682 CONFLICT                       

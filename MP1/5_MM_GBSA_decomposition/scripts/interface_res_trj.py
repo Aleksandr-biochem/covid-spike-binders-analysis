@@ -5,7 +5,7 @@ from collections import defaultdict
 from pyxmolpp2.pipe import AssembleQuaternaryStructure, Align
 from pyxmolpp2 import PdbFile, Trajectory, AmberNetCDF, mName, AtomPredicate
 
-sys.path.append('../../../handling/LCB1/md-utils/md_utils')
+sys.path.append('path_to_md-utils')
 from frame.extract import extract_residues_on_interface
 from frame.select import get_sec_str_residues_predicate
 
@@ -54,7 +54,7 @@ for cmplx in complexes:
 	# all_sec_str_ca_predicate = get_sec_str_residues_predicate(frame=trj_ref, molnames=["A", "B"])
 	# traj = Trajectory(xray_ref)
     # for ind in tqdm(range(traj_start, traj_length), desc=f"{cmplx} traj reading"):
-    #    traj.extend(AmberNetCDF(f"/home/xenia/cov2/trj/LCB1/{cmplx}/6_run/{ind:05d}.nc"))
+    #    traj.extend(AmberNetCDF(f"/home/xenia/cov2/trj/MP1/{cmplx}/6_run/{ind:05d}.nc"))
 
 	# dictinoaries to collect residues with treir occurancies
 	interface_res_A, interface_res_B = defaultdict(int), defaultdict(int)

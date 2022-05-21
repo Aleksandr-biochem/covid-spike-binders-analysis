@@ -45,14 +45,14 @@ def sum_gbsa_decomp(trj_path=".", outpth="summary_gbsa_decomp", answ="y"):
             	path_to_reference = f"../../2_MD_Amber/sample/{cmplx}+mp1/0_prepare/protein_named.pdb"
             
             reference = PdbFile(path_to_reference).frames()[0]
-            lcb = reference.molecules.filter(mName == "A")
+            mp = reference.molecules.filter(mName == "A")
             rbd = reference.molecules.filter(mName == "B")
-            rids_lcb = [residue.id.serial for residue in lcb.residues]
+            rids_mp = [residue.id.serial for residue in mp.residues]
             rids_rbd = [residue.id.serial for residue in rbd.residues]
 
             ### set first rid in case end-to-end numbering (relevant for mmgbsa analysis)
-            lcb_start_rid = rids_lcb[0]
-            rbd_start_rid = rids_lcb[-1] + 1
+            mp_start_rid = rids_mp[0]
+            rbd_start_rid = rids_mp[-1] + 1
 
             # get data as a nested dictionary
             print('Checking compressed data existence....')
@@ -91,16 +91,16 @@ def sum_gbsa_decomp(trj_path=".", outpth="summary_gbsa_decomp", answ="y"):
             for residue_pair in tqdm(complex_residue_pairs, desc=f"{run} model {cmplx}+mp1"):
             	rid_first, rid_second = residue_pair.split('-')
             	total_energy = data['decomp']["gb"]['complex']["TDC"][f"{rid_first}-{rid_second}"]['tot'].copy() + data['decomp']["gb"]['complex']["TDC"][f"{rid_second}-{rid_first}"]['tot'].copy()
-            	rid_lcb = rids_lcb[int(rid_first) - lcb_start_rid]
+            	rid_mp = rids_mp[int(rid_first) - mp_start_rid]
             	rid_rbd = rids_rbd[int(rid_second) - rbd_start_rid]
 
-            	rname_lcb = lcb.residues.filter(rId == rid_lcb)[0].name
+            	rname_mp = mp.residues.filter(rId == rid_mp)[0].name
             	rname_rbd = rbd.residues.filter(rId == rid_rbd)[0].name
 
             	total_energy_avg, total_energy_std = total_energy[500:].mean(), total_energy[500:].std()
 
             	if abs(total_energy_avg) > 1.0:
-                      temp = {"rId_lcb": rid_lcb, "rName_lcb": rname_lcb, "rId_rbd": rid_rbd, "rName_rbd": rname_rbd, "total_energy_avg": total_energy_avg, "total_energy_std": total_energy_std}
+                      temp = {"rId_mp": rid_mp, "rName_mp": rname_mp, "rId_rbd": rid_rbd, "rName_rbd": rname_rbd, "total_energy_avg": total_energy_avg, "total_energy_std": total_energy_std}
                       out_decomp_df = pd.concat([out_decomp_df, pd.DataFrame(temp, index=[0])])
             # assign brief model name
             model = run.split('_')[0]

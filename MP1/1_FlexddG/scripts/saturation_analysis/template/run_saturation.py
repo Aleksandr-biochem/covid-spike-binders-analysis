@@ -16,8 +16,8 @@ if use_multiprocessing:
 # Important: The variables below are set to values that will make the run complete faster (as a tutorial example), but will not give scientifically valid results.
 #            Please change them to the "normal" default values before a real run.
 ###################################################################################################################################################################
-
-rosetta_scripts_path = os.path.expanduser("/home/olebedenko/tools/rosetta_bin_linux_2021.16.61629_bundle/main/source/bin/rosetta_scripts.mpi.linuxgccrelease")
+user_rosetta_path = "/home/username/tools"
+rosetta_scripts_path = os.path.expanduser(f"{user_rosetta_path}/rosetta_bin_linux_2021.16.61629_bundle/main/source/bin/rosetta_scripts.mpi.linuxgccrelease")
 nstruct = 35 # Normally 35
 max_minimization_iter = 5000 # Normally 5000
 abs_score_convergence_thresh = 1.0 # Normally 1.0

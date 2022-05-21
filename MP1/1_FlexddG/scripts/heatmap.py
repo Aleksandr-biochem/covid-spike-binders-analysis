@@ -35,7 +35,7 @@ def highlight_cell(x, y, ax=None, **kwargs):
 # function to create heatmap
 def heatmap_rosetta(summary, strain, output='.'):
     """
-    Generate heatmap of primary LCB-to-mutant LCB dG difference.
+    Generate heatmap of primary MP-to-mutant MP dG difference.
     
     param: rosetta_path - path to the folder with FlexddG results
     param: strain - which strain is analyzed
@@ -103,7 +103,7 @@ if __name__ == "__main__":
     # parse arguments
     parser = argparse.ArgumentParser(description='Plot heatmap for ddG of mutated complex against wt')
     
-    parser.add_argument('--input', '-i', nargs=1, help='Path to rosetta analysis folder', required=True, default="./LCB1")
+    parser.add_argument('--input', '-i', nargs=1, help='Path to rosetta analysis folder', required=True, default="./MP1")
     
     parser.add_argument('--strain', '-s', nargs=1, help='Used name of strain', required=True, default="delta+")
     

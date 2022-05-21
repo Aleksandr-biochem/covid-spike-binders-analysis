@@ -134,7 +134,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     ### read wt and mutant references
-    #path_to_wt = f"/home/xenia/cov2/trj/LCB1/wt+lcb1_2/0_prepare/protein_named.pdb"
+    #path_to_wt = f"/home/xenia/cov2/trj/mp1/wt+mp1_2/0_prepare/protein_named.pdb"
     path_to_wt = args.w[0]
     ref_wt = PdbFile(path_to_wt).frames()[0]
 
@@ -148,23 +148,23 @@ if __name__ == "__main__":
         ref_mutant = PdbFile(path_to_mutant).frames()[0]
 
         ### read parsed decomp data with residue pairs, whose trajectory-average energy exceeded 1 kcal/mol
-        #path_decomp_dir = "/home/xenia/cov2/trj/LCB1/summary_gbsa_decomp"
+        #path_decomp_dir = "/home/xenia/cov2/trj/MP1/summary_gbsa_decomp"
         path_decomp_dir = args.i[0]
         df_decomp_wt = pd.read_csv(os.path.join(path_decomp_dir, "wt+mp1_igb8_sum_decomp_GBSA.TDC.significant.tsv"), sep='\t', index_col=False)
         df_decomp_mutant = pd.read_csv(os.path.join(path_decomp_dir, f"{mut}+mp1_igb8_sum_decomp_GBSA.TDC.significant.tsv"), sep='\t', index_col=False)
 
-        #df_decomp_wt = pd.read_csv(os.path.join(path_decomp_dir, "wt+lcb1_igb8_sum_decomp_GBSA.TDC.significant.tsv"), sep='\t')
-        #df_decomp_mutant = pd.read_csv(os.path.join(path_decomp_dir, "omicron+lcb1_igb8_sum_decomp_GBSA.TDC.significant.tsv"), sep='\t')
+        #df_decomp_wt = pd.read_csv(os.path.join(path_decomp_dir, "wt+mp1_igb8_sum_decomp_GBSA.TDC.significant.tsv"), sep='\t')
+        #df_decomp_mutant = pd.read_csv(os.path.join(path_decomp_dir, "omicron+mp1_igb8_sum_decomp_GBSA.TDC.significant.tsv"), sep='\t')
 
 
         ### exctract union, overlap and unique residues in wt and mutant complex. It needs for generate data_matrix
-        residue_pairs_wt = list(zip(df_decomp_wt["rId_lcb"].values, df_decomp_wt["rId_rbd"].values))
-        residue_pairs_mutant = list(zip(df_decomp_mutant["rId_lcb"].values, df_decomp_mutant["rId_rbd"].values))
+        residue_pairs_wt = list(zip(df_decomp_wt["rId_mp"].values, df_decomp_wt["rId_rbd"].values))
+        residue_pairs_mutant = list(zip(df_decomp_mutant["rId_mp"].values, df_decomp_mutant["rId_rbd"].values))
 
         union_residue_pairs = set(residue_pairs_wt) | set(residue_pairs_mutant)
-        union_residue_lcb, union_residue_rbd = map(list, zip(*union_residue_pairs))
-        union_residue_lcb, union_residue_rbd = np.unique(union_residue_lcb), np.unique(union_residue_rbd)
-        union_residue_lcb.sort()
+        union_residue_mp, union_residue_rbd = map(list, zip(*union_residue_pairs))
+        union_residue_mp, union_residue_rbd = np.unique(union_residue_mp), np.unique(union_residue_rbd)
+        union_residue_mp.sort()
         union_residue_rbd.sort()
 
         overlap_residue_pairs = list(set(residue_pairs_wt) & set(residue_pairs_mutant))
@@ -174,29 +174,29 @@ if __name__ == "__main__":
 
         ### generate data_matrix for plot heatmap
         ### if residue_pair doesn't exist in df_decomp the corresponding total_eneregy is asssigned zero
-        data_matrix = np.zeros((len(union_residue_lcb), len(union_residue_rbd)))
-        for ind_1, rid_lcb in enumerate(union_residue_lcb):
+        data_matrix = np.zeros((len(union_residue_mp), len(union_residue_rbd)))
+        for ind_1, rid_mp in enumerate(union_residue_mp):
             for ind_2, rid_rbd in enumerate(union_residue_rbd):
-                if (rid_lcb, rid_rbd) in overlap_residue_pairs:
+                if (rid_mp, rid_rbd) in overlap_residue_pairs:
                     total_energy_wt = df_decomp_wt["total_energy_avg"][
-                        (df_decomp_wt["rId_lcb"] == rid_lcb) & (df_decomp_wt["rId_rbd"] == rid_rbd)].values[0]
+                        (df_decomp_wt["rId_mp"] == rid_mp) & (df_decomp_wt["rId_rbd"] == rid_rbd)].values[0]
                     total_energy_mutant = df_decomp_mutant["total_energy_avg"][
-                        (df_decomp_mutant["rId_lcb"] == rid_lcb) & (df_decomp_mutant["rId_rbd"] == rid_rbd)].values[0]
+                        (df_decomp_mutant["rId_mp"] == rid_mp) & (df_decomp_mutant["rId_rbd"] == rid_rbd)].values[0]
                     data_matrix[ind_1, ind_2] = total_energy_mutant - total_energy_wt
-                elif (rid_lcb, rid_rbd) in unique_residue_pairs_mutant:
+                elif (rid_mp, rid_rbd) in unique_residue_pairs_mutant:
                     total_energy_mutant = df_decomp_mutant["total_energy_avg"][
-                        (df_decomp_mutant["rId_lcb"] == rid_lcb) & (df_decomp_mutant["rId_rbd"] == rid_rbd)].values[0]
+                        (df_decomp_mutant["rId_mp"] == rid_mp) & (df_decomp_mutant["rId_rbd"] == rid_rbd)].values[0]
                     data_matrix[ind_1, ind_2] = total_energy_mutant
-                elif (rid_lcb, rid_rbd) in unique_residue_pairs_wt:
+                elif (rid_mp, rid_rbd) in unique_residue_pairs_wt:
                     total_energy_wt = df_decomp_wt["total_energy_avg"][
-                        (df_decomp_wt["rId_lcb"] == rid_lcb) & (df_decomp_wt["rId_rbd"] == rid_rbd)].values[0]
+                        (df_decomp_wt["rId_mp"] == rid_mp) & (df_decomp_wt["rId_rbd"] == rid_rbd)].values[0]
                     data_matrix[ind_1, ind_2] = - total_energy_wt
 
         ### define rnames wt and mutant for labelling heatmap axes
         rnames_wt_rbd = [res.name for res in ref_wt.residues.filter(rId.is_in(set(union_residue_rbd)))]
         rnames_mutant_rbd = [res.name for res in ref_mutant.residues.filter(rId.is_in(set(union_residue_rbd)))]
 
-        rnames_mutant_lcb = [res.name for res in ref_wt.residues.filter(rId.is_in(set(union_residue_lcb)))]
+        rnames_mutant_mp = [res.name for res in ref_wt.residues.filter(rId.is_in(set(union_residue_mp)))]
 
         col_labels = [f'{r_name1}\n{r_num}\n{r_name2}' if r_name1 != r_name2 else f'{r_name1}\n{r_num}'
                       for r_name1, r_num, r_name2 in
@@ -205,8 +205,8 @@ if __name__ == "__main__":
                           rnames_mutant_rbd)]
 
         row_labels = [f"{n}{k}" for k, n in
-                      zip(union_residue_lcb,
-                          rnames_mutant_lcb)]
+                      zip(union_residue_mp,
+                          rnames_mutant_mp)]
 
         ### define the common heatmap settings
         colormap = 'bwr'

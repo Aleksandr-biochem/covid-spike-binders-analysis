@@ -17,7 +17,7 @@ def iterate_inputs(file, search_exp, replace_exp):
 def create_dir(parent, daughter):
     call(['cp', '-R', parent, daughter])
 
-path_to_pdb = "template/inputs/pdb_deltaplus/delta_plus+lcb1_minimized.pdb"
+path_to_pdb = "template/inputs/pdb_deltaplus/delta_plus+mp1_minimized.pdb"
 pdb = PdbFile(path_to_pdb).frames()[0]
 
 path_to_template = "template/."

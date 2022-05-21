@@ -5,9 +5,9 @@
 #SBATCH --partition=cpu
 
 # We need amber 
-source /home/oleg/amber/amber.sh
+source /home/username/amber/amber.sh
 # We need python enviroment
-source /home/xenia/cov2/venv/bin/activate
+source /home/username/cov2/venv/bin/activate
 
 
 
