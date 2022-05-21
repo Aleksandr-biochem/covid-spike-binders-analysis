@@ -1,5 +1,5 @@
 # Analysis and construction of SARS-CoV-2 neutralizing ligands with extensive Spike binding
-*This repository contains the workflow and results on the analysis of mini-protein ligangs affinity to receptor-binding domains (RBD) of SARS-CoV-2 variants*
+*This repository contains the workflow and results on the analysis of mini-protein ligands affinity to receptor-binding domains (RBD) of SARS-CoV-2 variants*
 
 **Authors:**
 - Aleksandr Kovalenko *(All-Russian Institute of Plant Protection, Saint Petersburg, Russia)*
@@ -13,7 +13,7 @@
 - [Repository structure](#sec4) </br>
 - [Results for MP1](#sec5) </br>
 - [Results for MP3](#sec6) </br>
-- [Conclusionы](#sec7) </br>
+- [Conclusions](#sec7) </br>
 - [Literature](#sec8) </br>
 
 <a name="sec1"></a>
