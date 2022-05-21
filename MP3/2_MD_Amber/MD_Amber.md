@@ -22,7 +22,7 @@ python init_cov2.py
 - pH 7.5 (protonation state generated with `Propka`)
 - temperature at production 298K
 
-2. `run_cov2.py` will launch the simulations for the complexes specified in `mutants` variable inside the script:
+2. `run_cov2.py` will launch the simulations for the complexes specified in `mutants` variable inside the script. Before execution specify paths to python env and Amber20 inside the script.
 ```sh
 python run_cov2.py
 ```
