@@ -15,7 +15,7 @@ Within this step MM-GBSA calculations are performed to estimate binding free ene
 ```sh
 python prep_MMPBSA_jobs.py
 ```
-2. Run jobs (don't forget to check `mutants`):
+2. Run jobs (don't forget to check `mutants`, and specify paths to amber and python env inside the script):
 ```sh
 sbatch run_slurm.sh
 ```
