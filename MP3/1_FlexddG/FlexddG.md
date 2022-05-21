@@ -95,7 +95,7 @@ python plot_pair_mutation_results.py -i ../tables/delta_plus_MP3_pair_mutations.
 ```
 **Note** that this script operates upon assumtion that 1 mutation is being fixed across all pairs.
 
-**Obtained results:**. 
+**Obtained results:**   
 In order to find MP3 variants with two mutations a pair mutational scan is conducted. Pairs consist of D37R substitution and each stabilizing mutation found for MP3/delta+ complex earlier. Visualization of FlexddG scores with a box plot demonstrates, that all studied combinations are stabilizing for delta+ complex. The best result corresponds to T10W+D37R combination as it has one of the lowest scores and deviations. All combinations of mutations are destabilizing for omicron complex and are rather illustrative here.
 
 <p align="center">
