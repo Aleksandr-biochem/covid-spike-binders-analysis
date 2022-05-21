@@ -6,9 +6,9 @@
 #SBATCH --nodelist=bionmr-mom-002
 
 # We need this particular amber 
-source /home/oleg/amber/amber.sh
+source /path/to/amber/amber.sh
 # We need python enviroment
-source ~/cov2/venv_cov2/bin/activate
+source ~/path/to/python/venv/bin/activate
 
 
 typeset -i i END
