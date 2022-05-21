@@ -12,24 +12,23 @@ if use_multiprocessing:
     import multiprocessing
     max_cpus = 20 # We might want to not run on the full number of cores, as Rosetta take about 2 Gb of memory per instance
 
-###################################################################################################################################################################
-# Important: The variables below are set to values that will make the run complete faster (as a tutorial example), but will not give scientifically valid results.
-#            Please change them to the "normal" default values before a real run.
-###################################################################################################################################################################
+# specify path to rosetta
+rosetta_scripts_path = os.path.expanduser("/path/to/rosetta_bin_linux_2021.16.61629_bundle/main/source/bin/rosetta_scripts.mpi.linuxgccrelease")
 
-rosetta_scripts_path = os.path.expanduser("/home/olebedenko/tools/rosetta_bin_linux_2021.16.61629_bundle/main/source/bin/rosetta_scripts.mpi.linuxgccrelease")
+# Flex ddG parameters
 nstruct = 35 # Normally 35
 max_minimization_iter = 5000 # Normally 5000
 abs_score_convergence_thresh = 1.0 # Normally 1.0
 number_backrub_trials = 35000 # Normally 35000
 backrub_trajectory_stride = 17500 # Can be whatever you want, if you would like to see results from earlier time points in the backrub trajectory. 7000 is a reasonable number, to give you three checkpoints for a 35000 step run, but you could also set it to 35000 for quickest run time (as the final minimization and packing steps will only need to be run one time).
-path_to_script = 'ddG-backrub.xml'
+path_to_script = 'ddG-backrub.xml' # path to script for Flex ddG
 
-
-mutation_positions = {3: 'D', 7: 'M', 10: 'T', 17: 'L', 34: 'E', 37: 'D'} # residues to be mutated
+# this positions in MP3 will be mutated, provide dictionary of position index and residue name
+mutation_positions = {3: 'D', 7: 'M', 10: 'T', 17: 'L', 34: 'E', 37: 'D'}
 
 # Residue combinations to mutate
-# Format specification: a list of (Chain, tuple(PDB residue numbers), tuple(new residues in single letter notation).
+# Format specification: a list of mutation pairs as (Chain, tuple(PDB residue numbers), tuple(new residues in single letter notation).
+# Note, here D37R is fixed across all mutations
 residue_combinations_to_mutate = [('A', (37, 3), ('R', 'W')), ('A', (37, 3), ('R', 'H')),
                                   ('A', (37, 7), ('R', 'M')), ('A', (37, 7), ('R', 'F')),
                                   ('A', (37, 10), ('R', 'Y')), ('A', (37, 10), ('R', 'W')), ('A', (37, 10), ('R', 'F')),
