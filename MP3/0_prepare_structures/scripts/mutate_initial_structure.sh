@@ -1,10 +1,10 @@
 
 # specify path to python environment
-PATH_TO_VENV="/home/akovalenko/cov2/venv_cov2/"
-# path to BioBB chech_structure.py
+PATH_TO_VENV="/path/to/python/venv/"
+# path to BioBB check_structure.py
 PATH_TO_BIOBB_STRUCTURE_CHECKING=$PATH_TO_VENV/lib/python3.8/site-packages/biobb_structure_checking/check_structure.py
 # path to phenix
-PATH_TO_PHENIX="/home/olebedenko/tools/phenix-1.19.2-4158/phenix_env.sh"
+PATH_TO_PHENIX="/path/to/phenix-1.19.2-4158/phenix_env.sh"
 
 ## make directory with temporary files
 mkdir -p ../tmp
@@ -25,9 +25,9 @@ python $PATH_TO_BIOBB_STRUCTURE_CHECKING -i ../tmp/wt+mp3.pdb -o ../tmp/delta_pl
 
 #### below is a list of -mut specificastions for each covid and MP3 variant
 # alpha                     B:Asn501Tyr
-# delta 					B:Leu452Arg,B:Thr478Lys
-# delta_plus 				B:Lys417Asn,B:Leu452Arg,B:Thr478Lys
-# omicron 				    B:Lys417Asn,B:Thr478Lys,B:Glu484Ala,B:Asn501Tyr,B:Gly339Asp,B:Ser371Leu,B:Ser373Pro,B:Ser375Phe,B:Asn440Lys,B:Gly446Ser,B:Ser477Asn,B:Gln493Arg,B:Gly496Ser,B:Gln498Arg,B:Tyr505His
+# delta 					          B:Leu452Arg,B:Thr478Lys
+# delta_plus 				        B:Lys417Asn,B:Leu452Arg,B:Thr478Lys
+# omicron 				          B:Lys417Asn,B:Thr478Lys,B:Glu484Ala,B:Asn501Tyr,B:Gly339Asp,B:Ser371Leu,B:Ser373Pro,B:Ser375Phe,B:Asn440Lys,B:Gly446Ser,B:Ser477Asn,B:Gln493Arg,B:Gly496Ser,B:Gln498Arg,B:Tyr505His
 # delta_plus+MP3_D37R 	    A:Asp37Arg,B:Lys417Asn,B:Leu452Arg,B:Thr478Lys
 # delta_plus+MP3_T10W_D37R  A:Asp37Arg,A:Thr10Trp,B:Lys417Asn,B:Leu452Arg,B:Thr478Lys
 #### 
