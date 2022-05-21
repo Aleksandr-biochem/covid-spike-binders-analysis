@@ -8,8 +8,8 @@ workers = [
     LocalSlurmWorker(
         remote_user_rc = """
 unset PYTHONPATH
-source ~/cov2/venv_cov2/bin/activate
-source /opt/amber20/amber.sh
+source ~/path/to/python/venv/bin/activate
+source /path/to/amber20/amber.sh
 """,
         sbatch_args = [
             "--gpus=rtx_2080_ti",           # Select gpu type from your machine
