@@ -24,7 +24,7 @@ def plot_ddg(df, path_to_pdb, fixed_mutation, mutant, backrub_steps, nstruct, sc
 
     # figures to plot
     mean_metrics = ddg_data_filt.loc[:, 'total_score'].astype(float).to_numpy().round(2)
-    std_metrics = ddg_data_filt.loc[:, 'total_score'].astype(float).to_numpy()
+    std_metrics = ddg_data_filt.loc[:, 'total_score.1'].astype(float).to_numpy()
 
 
     # a function to set axis parameters
@@ -43,11 +43,11 @@ def plot_ddg(df, path_to_pdb, fixed_mutation, mutant, backrub_steps, nstruct, sc
         for rect in rects:
             height = rect.get_height()
             if height > 0:
-                ax.text(rect.get_x() + rect.get_width()/1.6, height*1.2,
+                ax.text(rect.get_x() + rect.get_width()/1.6, height+0.2,
                         height,
                         ha='left', va='bottom', fontsize=15)
             else:
-                ax.text(rect.get_x() + rect.get_width()/1.6, height*1.2,
+                ax.text(rect.get_x() + rect.get_width()/1.6, height-0.3,
                         height,
                         ha='left', va='bottom', fontsize=15)
 
