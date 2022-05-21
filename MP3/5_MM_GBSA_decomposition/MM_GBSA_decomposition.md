@@ -23,7 +23,7 @@ python analyze_interface_residues.py
 ```sh
 python prep_MMPBSA_decomp_jobs.py
 ```
-2. Run jobs (don't forget to specify `mutants`):
+2. Run jobs (don't forget to specify `mutants`, and specify paths to amber and python env inside the script):
 ```sh
 sbatch run_slurm_decomposition.sh
 ```
